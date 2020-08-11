@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.ibb.co/HhmVR2v/logo.png"> <br>
+  <img src="Images/logo.png"> <br>
   <b>Stealer + Clipper + Keylogger</b> <br>
   <i>Stealer written on C#, logs will be sent to Telegram bot.</i>
 </p>
@@ -47,7 +47,7 @@ By using this software, you automatically agree to the above.
 
 # :loudspeaker: Telegram notification:
 <p align="center">
-  <img src="https://i.ibb.co/n09cb1s/log.png">
+  <img src="Images/report.png">
 </p>
 
 ***
