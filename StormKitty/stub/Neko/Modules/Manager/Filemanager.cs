@@ -1,7 +1,7 @@
 ﻿using Ionic.Zip;
-using StormKitty.Implant;
 using System.IO;
 using System.Linq;
+using StormKitty.Implant;
 
 namespace StormKitty
 {
@@ -54,7 +54,7 @@ namespace StormKitty
         {
             if (Directory.Exists(directory))
             {
-                using (ZipFile zip = new ZipFile(System.Text.Encoding.Default))
+                using (ZipFile zip = new ZipFile(System.Text.Encoding.UTF8))
                 {
                     zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression;
                     zip.Comment = "" +

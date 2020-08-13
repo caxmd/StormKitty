@@ -53,7 +53,6 @@ namespace StormKitty
                 if (ActiveWindow != PrevActiveWindow)
                 {
                     PrevActiveWindow = ActiveWindow;
-                    ClipboardManager.PrevClipboard = "";
                     foreach (Action f in functions)
                         f.Invoke();
                 }

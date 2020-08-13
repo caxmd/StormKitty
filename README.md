@@ -4,8 +4,6 @@
   <i>Stealer written on C#, logs will be sent to Telegram bot.</i>
 </p>
 
-
-
 ***
 
 # :construction: Disclaimer
@@ -16,28 +14,41 @@ By using this software, you automatically agree to the above.
 
 ***
 
-# 🔱 Functions
-* AntiAnalysis (VirtualBox, SandBox, Emulator, Debugger, VirusTotal, Any.Run)
-* Steal system info (Version, CPU, GPU, RAM, IPs, BSSID, Location, Screen metrics)
+# 🔱 Data extraction:
+* AntiAnalysis (VirtualBox, SandBox, Debugger, VirusTotal, Any.Run)
+* Get system info (Version, CPU, GPU, RAM, IPs, BSSID, Location, Screen metrics, Installed apps)
 * Chromium based browsers (passwords, credit cards, cookies, history, autofill, bookmarks)
 * Firefox based browsers (db files, cookies, history, bookmarks)
 * Internet explorer/Edge (passwords)
 * Saved wifi networks & scan networks around device (SSID, BSSID)
 * File grabber (Documents, Images, Source codes, Databases, USB)
 * Detect banking & cryptocurrency services in browsers
-* Install keylogger & clipper
 * Steam, Uplay, Minecraft session
+* Install keylogger & clipper
 * Desktop & Webcam screenshot
 * ProtonVPN, OpenVPN, NordVPN
 * Cryptocurrency Wallets
+* Directories structure
 * Telegram sessions
+* Outlook accounts
 * Pidgin accounts
+* Skype session
 * Discord tokens
 * Filezilla hosts
 * Process list
-* Directories structure
 * Product key
 * Autorun module
+
+***
+
+# :fire: Features:
+> These functions will become available in the builder only if you have autorun enabled.
+* **:musical_keyboard: Keylogger:**
+  * The keylogger will turn on if the user is texting in the chat or using the bank's website.
+* **:clipboard: Clipper:**
+  * Clipper turns on and replaces crypto wallet addresses in the clipboard when a user makes a transaction.
+* **:camera: Webcam screenshots:**
+  * Webcam screenshots will be taken if the user is watching something obscene on the Internet.
 
 ***
 

