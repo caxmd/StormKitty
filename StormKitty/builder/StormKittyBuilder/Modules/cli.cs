@@ -68,7 +68,6 @@ namespace StormKittyBuilder
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
                 return OpenFileDialog.FileName;
             
-
             return null;
         }
 

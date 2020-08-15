@@ -14,6 +14,7 @@ namespace StormKittyBuilder
     {
         // Current directory
         private static string Desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        private static string OutputStub = Path.Combine(Desktop, "StormKittyBuild.exe");
         private static string WorkingDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
         // Write confuzer settings
@@ -28,6 +29,10 @@ namespace StormKittyBuilder
         // Run confuzer
         private static string Confuzer(string settings)
         {
+            // Remove old build
+            if (File.Exists(OutputStub))
+                File.Delete(OutputStub);
+            // Run confuzer
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
@@ -38,11 +43,10 @@ namespace StormKittyBuilder
             Process process = Process.Start(startInfo);
             process.WaitForExit();
             File.Delete("stub\\build.exe");
-            File.Move("build\\stub\\build.exe", Desktop + "\\build.exe");
+            File.Move("build\\stub\\build.exe", OutputStub);
             Directory.Delete("build", true);
 
-            string result = Desktop + "\\build.exe";
-            if (File.Exists(result)) return result;
+            if (File.Exists(OutputStub)) return OutputStub;
             cli.ShowError("Failed to obfuscate stub");
             return null;
         }
