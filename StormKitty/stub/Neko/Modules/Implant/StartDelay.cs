@@ -15,6 +15,7 @@ namespace StormKitty.Implant
                 SleepMin * 1000,
                 SleepMax * 1000
                 );
+            Logging.Log("StartDelay : Sleeping " + SleepTime);
             System.Threading.Thread.Sleep(SleepTime);
         }
     }

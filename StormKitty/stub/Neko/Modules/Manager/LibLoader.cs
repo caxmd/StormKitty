@@ -26,7 +26,7 @@ namespace StormKitty
                     }
                     catch (WebException)
                     {
-                        Console.WriteLine("LibLoader : Failed to download library " + dll);
+                        Logging.Log("LibLoader: Failed to download library " + dll);
                         System.Threading.Thread.Sleep(2000);
                         continue;
                     }

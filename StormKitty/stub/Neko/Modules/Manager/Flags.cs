@@ -2,7 +2,7 @@
 {
     internal sealed class Flags
     {
-        public static string GetFlag(string c)
+        public static string GetFlag(string c) // shit
         {
             if (c == "AD") return "🇦🇩";
             if (c == "AE") return "🇦🇪";

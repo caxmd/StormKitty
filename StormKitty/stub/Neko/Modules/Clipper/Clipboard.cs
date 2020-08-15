@@ -19,7 +19,6 @@ namespace Clipper
                 STAThread.SetApartmentState(ApartmentState.STA);
                 STAThread.Start();
                 STAThread.Join();
-
             }
             catch { }
             return ReturnValue;

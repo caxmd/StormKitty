@@ -22,13 +22,13 @@ namespace StormKitty
                         if (!ResponseBody.Contains("\"error\": {"))
                             return ResponseBody.Split('"')[15];
                         else
-                            Console.WriteLine(ResponseBody);
+                            Logging.Log("AnonFile Upload : API exception\n" + ResponseBody);
                     }
                 }
             }
             catch (Exception error)
             {
-                Console.WriteLine(error);
+                Logging.Log("AnonFile Upload : Connection error\n" + error);
             }
             return null;
         }

