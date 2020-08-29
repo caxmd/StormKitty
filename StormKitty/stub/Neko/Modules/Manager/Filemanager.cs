@@ -74,7 +74,6 @@ namespace StormKitty
                         "\nCPU: " + SystemInfo.GetCPUName() +
                         "\nGPU: " + SystemInfo.GetGPUName() +
                         "\nRAM: " + SystemInfo.GetRamAmount() +
-                        "\nHWID: " + SystemInfo.GetHardwareID() +
                         "\nPower: " + SystemInfo.GetBattery() +
                         "\nScreen: " + SystemInfo.ScreenMetrics() +
                         "\n" +

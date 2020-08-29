@@ -11,7 +11,7 @@ namespace StormKitty
     internal sealed class Config
     {
         // Stealer version
-        public static string Version = "1.4";
+        public static string Version = "1.5";
         // Debug mode (write all exceptions to file)
         public static string DebugMode = "--- Debug ---";
         // Telegram bot API key

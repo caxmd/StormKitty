@@ -26,7 +26,7 @@ namespace StormKitty
         // Language
         public static string culture = System.Globalization.CultureInfo.CurrentCulture.ToString();
         // Current date
-        public static string datenow = DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt");
+        public static readonly string datenow = DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt");
 
 
         // Get screen metrics
@@ -90,19 +90,6 @@ namespace StormKitty
         public static string GetSystemVersion()
         {
             return GetWindowsVersionName() + " " + GetBitVersion();
-        }
-
-        // Get HWID
-        public static string GetHardwareID()
-        {
-            try
-            {
-                var mbs = new ManagementObjectSearcher("Select ProcessorId From Win32_processor");
-                ManagementObjectCollection mbsList = mbs.Get();
-                foreach (ManagementObject mo in mbsList)
-                    return mo["ProcessorId"].ToString();
-            } catch { }
-            return "Unknown";
         }
 
         // Get default gateway

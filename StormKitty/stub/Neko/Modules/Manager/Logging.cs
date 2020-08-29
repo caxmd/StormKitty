@@ -15,5 +15,11 @@ namespace StormKitty
                 File.AppendAllText(logfile, text + newline);
             return ret;
         }
+
+        public static void Save(string sSavePath)
+        {
+            if (Config.DebugMode == "1" && File.Exists(logfile))
+                try { File.Copy(logfile, sSavePath); } catch { };
+        }
     }
 }

