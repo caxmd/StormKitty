@@ -40,7 +40,7 @@ namespace StormKittyBuilder
                     encryptedBytes = ms.ToArray();
                 }
             }
-            return "ENCRYPTED:" + Convert.ToBase64String(encryptedBytes);
+            return "CRYPTED:" + Convert.ToBase64String(encryptedBytes);
         }
 
         // Create MD5 hash
